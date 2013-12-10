@@ -10,6 +10,9 @@ import javax.persistence.Table;
 @Entity
 @Table (name = "Administrator")
 public class Administrator {
+		
+	
+	
 	
 	@Id
 	@GeneratedValue (strategy  = GenerationType.SEQUENCE)
