@@ -9,7 +9,7 @@ package br.com.ambiciousteam.pfbistro.enummeration;
  */
 public enum EnumCategories {
 	
-	DRINKS("Bebidas"), SNACK("Lanches");
+	DRINKS("Bebidas"), SNACK("Lanches"), PIZZA("Pizza");
 	
 	private String category;
 	
