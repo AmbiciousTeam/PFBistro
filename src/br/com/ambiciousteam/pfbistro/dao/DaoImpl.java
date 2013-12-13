@@ -7,13 +7,11 @@ import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
 import javax.persistence.EntityManagerFactory;
 
-import org.hibernate.property.Getter;
-
-public class DaoImpl implements DAO<Serializable>{
+public class DaoImpl implements DaoIF<Serializable>{
 	private EntityManager entityManager;
 	
 	public DaoImpl() {
-		EntityManagerFactory emf =  Persistence.createEntityManagerFactory("Estrategia II SINGLE TABLE");
+		EntityManagerFactory emf =  Persistence.createEntityManagerFactory("PFBistro");
 		entityManager = emf.createEntityManager();
 	}
 

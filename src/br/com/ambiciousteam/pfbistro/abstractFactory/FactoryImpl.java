@@ -10,7 +10,7 @@ public class FactoryImpl implements FactoryIF {
 		
 		Administrator admin = new Administrator();
 		admin.setAdminName(name);
-		admin.setAdminPassoword(password);
+		admin.setAdminPassword(password);
 		return admin;
 	}
 

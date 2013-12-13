@@ -1,11 +1,12 @@
 package br.com.ambiciousteam.pfbistro.facade;
 
-import br.com.ambiciousteam.pfbistro.model.Administrator;
 
 public interface FacadeAdmin {
 	
-	public boolean login(Administrator admin);
+	public boolean login(String user, String password);
 	
-	
+	public boolean registeringProduct( String name, double price, String Category );
+
+	public boolean registeringAdmin( String name, String password );
 	
 }

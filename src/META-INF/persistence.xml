@@ -16,7 +16,7 @@
 			<property name="hibernate.connection.password" value="ads20121" />
 			<property name="hibernate.connection.url"
 				value="jdbc:postgresql://localhost:5432/PFBistro" />
-			<property name="hibernate.hbm2ddl.auto" value="create" />
+			<property name="hibernate.hbm2ddl.auto" value="update" />
 			<property name="hibernate.temp.use_jdbc_metadata_defaults"
 				value="false" />
 		</properties>

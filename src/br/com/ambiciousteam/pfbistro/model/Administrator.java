@@ -1,5 +1,7 @@
 package br.com.ambiciousteam.pfbistro.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -7,12 +9,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+@SuppressWarnings("serial")
 @Entity
 @Table (name = "Administrator")
-public class Administrator {
-		
-	
-	
+public class Administrator implements Serializable{
 	
 	@Id
 	@GeneratedValue (strategy  = GenerationType.SEQUENCE)
@@ -22,8 +22,8 @@ public class Administrator {
 	@Column(name = "adminName", length = 30, nullable = false)
 	private String adminName;
 	
-	@Column (name = "adminPassoword" , length = 30 , nullable = false)
-	private String adminPassoword;
+	@Column (name = "adminPassword" , length = 30 , nullable = false)
+	private String adminPassword;
 
 	public long getId() {
 		return id;
@@ -41,12 +41,12 @@ public class Administrator {
 		this.adminName = adminName;
 	}
 
-	public String getAdminPassoword() {
-		return adminPassoword;
+	public String getAdminPasswrd() {
+		return adminPassword;
 	}
 
-	public void setAdminPassoword(String adminPassoword) {
-		this.adminPassoword = adminPassoword;
+	public void setAdminPassword(String adminPassword) {
+		this.adminPassword = adminPassword;
 	}
 	
 	
