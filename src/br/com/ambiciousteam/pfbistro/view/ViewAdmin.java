@@ -21,17 +21,25 @@ import javax.swing.JLayeredPane;
 import javax.swing.JPasswordField;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.SwingConstants;
+
+import java.awt.Font;
+import java.awt.Color;
+
+import javax.swing.JTable;
+import javax.swing.JScrollPane;
 
 @SuppressWarnings("serial")
 public class ViewAdmin extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField inputNameAdmin;
-	private JTextField inputNameProduct;
-	private JTextField inputPriceProduct;
-	private JPasswordField passwordField;
-	private JComboBox<String> comboBoxCategory;
 	private FacadeAdmin facade;
+	private JTable table;
+	private JTextField fieldProdName;
+	private JTextField fieldProdPrice;
+	private JTextField fieldAdminName;
+	private JPasswordField fieldAdminPasswd;
+	private JComboBox<String> comboProdCategory;
 
 	/**
 	 * Launch the application.
@@ -57,7 +65,7 @@ public class ViewAdmin extends JFrame {
 		facade = new FacadeAdminImpl();
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 442, 291);
+		setBounds(100, 100, 640, 400);
 		getContentPane().setLayout(null);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -66,131 +74,136 @@ public class ViewAdmin extends JFrame {
 		setLocationRelativeTo(null);
 		setResizable(false);
 
+		JPanel panelTabbedFullReg = new JPanel();
+		panelTabbedFullReg.setBounds(0, 0, 634, 372);
+		contentPane.add(panelTabbedFullReg);
+		panelTabbedFullReg.setLayout(null);
 
-		JPanel panel = new JPanel();
-		panel.setBounds(0, 0, 434, 262);
-		contentPane.add(panel);
-		panel.setLayout(null);
+		JTabbedPane tabbedAdminFullReg = new JTabbedPane(JTabbedPane.TOP);
+		tabbedAdminFullReg.setBounds(0, 0, 634, 373);
+		panelTabbedFullReg.add(tabbedAdminFullReg);
 
-		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-		tabbedPane.setBounds(0, 0, 672, 400);
-		panel.add(tabbedPane);
+		JLayeredPane paneMenuReg = new JLayeredPane();
+		tabbedAdminFullReg.addTab("Cardápio", null, paneMenuReg, null);
 
-		JLayeredPane tabAdmin = new JLayeredPane();
-		tabbedPane.addTab("Administrador", null, tabAdmin, null);
+		JPanel panelMenuReg = new JPanel();
+		panelMenuReg.setLayout(null);
+		panelMenuReg.setBounds(0, 0, 629, 345);
+		paneMenuReg.add(panelMenuReg);
 
-		JPanel panel_1 = new JPanel();
-		panel_1.setBounds(0, 0, 431, 236);
-		tabAdmin.add(panel_1);
-		panel_1.setLayout(null);
-
-		inputNameAdmin = new JTextField();
-		inputNameAdmin.setBounds(94, 11, 130, 20);
-		panel_1.add(inputNameAdmin);
-		inputNameAdmin.setColumns(10);
-
-		JLabel lblUsuario = new JLabel("Usuario");
-		lblUsuario.setBounds(10, 14, 46, 14);
-		panel_1.add(lblUsuario);
-
-		JLabel lblSenha = new JLabel("Senha");
-		lblSenha.setBounds(10, 46, 46, 14);
-		panel_1.add(lblSenha);
-
-		passwordField = new JPasswordField();
-		passwordField.setBounds(94, 42, 130, 20);
-		panel_1.add(passwordField);
-
-		JButton btnSalvarAdministrador = new JButton("Salvar");
-		btnSalvarAdministrador.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				try {
-					String name = inputNameAdmin.getText();
-					char[] arrayPassword = passwordField.getPassword();
-					String password = "";
-					for (int i = 0; i < arrayPassword.length; i++) {
-						
-						password += ""+arrayPassword[i];
-						
-						System.out.println(password);
-					}
-							
-					if (facade.registeringAdmin(name, password)) {
-						JOptionPane.showMessageDialog(getContentPane(),
-								"Administrador cadastrado com sucesso");
-						// limpando
-						inputNameAdmin.setText("");
-					} else {
-						JOptionPane.showMessageDialog(getContentPane(),
-								"Administrador Não cadastrado!!!", "Erro",
-								JOptionPane.ERROR_MESSAGE);
-					}
-
-				} catch (Exception e2) {
-				}
-			}
-		});
-		btnSalvarAdministrador.setBounds(94, 72, 130, 23);
-		panel_1.add(btnSalvarAdministrador);
-
-		JLayeredPane layeredPane_1 = new JLayeredPane();
-		tabbedPane.addTab("Produto", null, layeredPane_1, null);
-
-		JPanel panel_2 = new JPanel();
-		panel_2.setBounds(0, 0, 431, 236);
-		layeredPane_1.add(panel_2);
-		panel_2.setLayout(null);
-
-		JLabel lblNome = new JLabel("Nome ");
-		lblNome.setBounds(7, 10, 120, 14);
-		panel_2.add(lblNome);
-
-		inputNameProduct = new JTextField();
-		inputNameProduct.setBounds(76, 7, 190, 20);
-		panel_2.add(inputNameProduct);
-		inputNameProduct.setColumns(10);
-
-		JLabel lblPreoProduto = new JLabel("Pre\u00E7o");
-		lblPreoProduto.setBounds(7, 35, 84, 14);
-		panel_2.add(lblPreoProduto);
-
-		inputPriceProduct = new JTextField();
-		inputPriceProduct.setBounds(76, 32, 190, 20);
-		panel_2.add(inputPriceProduct);
-		inputPriceProduct.setColumns(10);
-
-		JLabel lblCategoria = new JLabel("Categoria");
-		lblCategoria.setBounds(7, 60, 62, 14);
-		panel_2.add(lblCategoria);
-
-		comboBoxCategory = new JComboBox<String>();
-		comboBoxCategory.setBounds(76, 60, 190, 20);
-		comboBoxCategory.addItem(EnumCategories.DRINKS.getCategory());
-		comboBoxCategory.addItem(EnumCategories.SNACK.getCategory());
-		panel_2.add(comboBoxCategory);
+		JLabel lblCadastroDeCardpio = new JLabel("Cadastro de card\u00E1pio");
+		lblCadastroDeCardpio.setHorizontalAlignment(SwingConstants.CENTER);
+		lblCadastroDeCardpio.setFont(new Font("Tahoma", Font.BOLD, 18));
+		lblCadastroDeCardpio.setBounds(106, 11, 513, 45);
+		panelMenuReg.add(lblCadastroDeCardpio);
 		
-		JButton btnSaveProduct = new JButton("Salvar");
-		btnSaveProduct.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		JPanel panelSelectItens = new JPanel();
+		panelSelectItens.setBounds(10, 67, 250, 267);
+		panelMenuReg.add(panelSelectItens);
+		panelSelectItens.setLayout(null);
+		
+		JLabel lblMenuSelectCat = new JLabel("Selecione uma categoria");
+		lblMenuSelectCat.setHorizontalAlignment(SwingConstants.CENTER);
+		lblMenuSelectCat.setFont(new Font("Tahoma", Font.BOLD, 12));
+		lblMenuSelectCat.setBounds(10, 11, 230, 14);
+		panelSelectItens.add(lblMenuSelectCat);
+		
+		JComboBox comboMenuSelectCat = new JComboBox();
+		comboMenuSelectCat.setBounds(20, 36, 220, 20);
+		panelSelectItens.add(comboMenuSelectCat);
+		
+		JLabel lblMenuSelectItem = new JLabel("Selecione um item");
+		lblMenuSelectItem.setHorizontalAlignment(SwingConstants.CENTER);
+		lblMenuSelectItem.setFont(new Font("Tahoma", Font.BOLD, 12));
+		lblMenuSelectItem.setBounds(10, 77, 230, 14);
+		panelSelectItens.add(lblMenuSelectItem);
+		
+		JComboBox comboMenuSelectItem = new JComboBox();
+		comboMenuSelectItem.setBounds(20, 102, 220, 20);
+		panelSelectItens.add(comboMenuSelectItem);
+		
+		JButton btnMenuSave = new JButton("Salvar");
+		btnMenuSave.setBounds(41, 233, 89, 23);
+		panelSelectItens.add(btnMenuSave);
+		
+		JButton btnMenuCancel = new JButton("Cancelar");
+		btnMenuCancel.setBounds(130, 233, 89, 23);
+		panelSelectItens.add(btnMenuCancel);
+		
+		JButton btnMenuInsert = new JButton("Inserir");
+		btnMenuInsert.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnMenuInsert.setBounds(41, 199, 178, 23);
+		panelSelectItens.add(btnMenuInsert);
+		
+		JPanel panelMountedMenu = new JPanel();
+		panelMountedMenu.setBounds(270, 67, 349, 267);
+		panelMenuReg.add(panelMountedMenu);
+		panelMountedMenu.setLayout(null);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(618, 67, -346, 267);
+		panelMenuReg.add(scrollPane);
 
+		JLayeredPane paneProductReg = new JLayeredPane();
+		paneProductReg.setBackground(Color.LIGHT_GRAY);
+		tabbedAdminFullReg.addTab("Produto", null, paneProductReg, null);
+
+		JPanel panelProdReg = new JPanel();
+		panelProdReg.setBounds(0, 0, 629, 345);
+		paneProductReg.add(panelProdReg);
+		panelProdReg.setLayout(null);
+
+		JPanel panelProdItens = new JPanel();
+		panelProdItens.setBounds(119, 67, 390, 125);
+		panelProdReg.add(panelProdItens);
+		panelProdItens.setLayout(null);
+
+		JLabel lblProdName = new JLabel("Nome ");
+		lblProdName.setBounds(10, 42, 62, 14);
+		panelProdItens.add(lblProdName);
+
+		fieldProdName = new JTextField();
+		fieldProdName.setColumns(10);
+		fieldProdName.setBounds(79, 39, 300, 20);
+		panelProdItens.add(fieldProdName);
+
+		JLabel lblProdPrice = new JLabel("Pre\u00E7o");
+		lblProdPrice.setBounds(10, 67, 62, 14);
+		panelProdItens.add(lblProdPrice);
+
+		fieldProdPrice = new JTextField();
+		fieldProdPrice.setColumns(10);
+		fieldProdPrice.setBounds(79, 64, 120, 20);
+		panelProdItens.add(fieldProdPrice);
+
+		JLabel lblProdCategory = new JLabel("Categoria");
+		lblProdCategory.setBounds(10, 11, 62, 14);
+		panelProdItens.add(lblProdCategory);
+
+		comboProdCategory = new JComboBox<String>();
+		comboProdCategory.setBounds(79, 11, 300, 20);
+		comboProdCategory.addItem(EnumCategories.DRINKS.getCategory());
+		comboProdCategory.addItem(EnumCategories.SNACK.getCategory());
+		panelProdItens.add(comboProdCategory);
+
+		JButton btnProdSave = new JButton("Salvar");
+		btnProdSave.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
 				try {
-					String name = inputNameProduct.getText();
-					double price = Double.parseDouble(inputPriceProduct
+					String name = fieldProdName.getText();
+					double price = Double.parseDouble(fieldProdPrice
 							.getText());
-					String category = comboBoxCategory.getSelectedItem().toString();
+					String category = comboProdCategory.getSelectedItem().toString();
 					if (facade.registeringProduct(name, price, category)) {
-						JOptionPane.showMessageDialog(getContentPane(),
-								"Produto cadastrado com sucesso");
+						JOptionPane.showMessageDialog(getContentPane(),"Produto cadastrado com sucesso");
 						// limpando 
-						inputNameProduct.setText("");
-						inputPriceProduct.setText("");
-
+						fieldProdName.setText("");
+						fieldProdPrice.setText("");
 					} else {
 						JOptionPane.showMessageDialog(getContentPane(),
 								"Produto Não cadastrado!!!", "Erro",
 								JOptionPane.ERROR_MESSAGE);
 					}
-
 				} catch (NumberFormatException e2) {
 					JOptionPane.showMessageDialog(getContentPane(),
 							"Produto Não cadastrado!!!", "Preço Inválido",
@@ -198,15 +211,82 @@ public class ViewAdmin extends JFrame {
 				}
 			}
 		});
-		btnSaveProduct.setBounds(120, 88, 89, 23);
-		panel_2.add(btnSaveProduct);
+		btnProdSave.setBounds(153, 95, 130, 23);
+		panelProdItens.add(btnProdSave);
 
+		JLabel lblCadastroDeProdutos = new JLabel("Cadastro de Produtos");
+		lblCadastroDeProdutos.setBounds(106, 11, 513, 45);
+		panelProdReg.add(lblCadastroDeProdutos);
+		lblCadastroDeProdutos.setHorizontalAlignment(SwingConstants.CENTER);
+		lblCadastroDeProdutos.setFont(new Font("Tahoma", Font.BOLD, 18));
 
-		JLayeredPane layeredPane_2 = new JLayeredPane();
-		tabbedPane.addTab("Cardápio", null, layeredPane_2, null);
+		JLayeredPane paneAdminReg = new JLayeredPane();
+		tabbedAdminFullReg.addTab("Administrador", null, paneAdminReg, null);
 
-		JPanel panel_3 = new JPanel();
-		panel_3.setBounds(0, 0, 431, 236);
-		layeredPane_2.add(panel_3);
+		JPanel panelAdminReg = new JPanel();
+		panelAdminReg.setBounds(0, 0, 629, 345);
+		paneAdminReg.add(panelAdminReg);
+		panelAdminReg.setLayout(null);
+
+		JLabel lblAdminReg = new JLabel("Cadastro de Administradores");
+		lblAdminReg.setFont(new Font("Tahoma", Font.BOLD, 18));
+		lblAdminReg.setHorizontalAlignment(SwingConstants.CENTER);
+		lblAdminReg.setBounds(106, 11, 513, 45);
+		panelAdminReg.add(lblAdminReg);
+
+		table = new JTable();
+		table.setBounds(10, 326, 609, -87);
+		panelAdminReg.add(table);
+
+		JPanel panel = new JPanel();
+		panel.setLayout(null);
+		panel.setBounds(119, 67, 390, 125);
+		panelAdminReg.add(panel);
+
+		JLabel lblAdminName = new JLabel("Usuario");
+		lblAdminName.setBounds(10, 11, 62, 14);
+		panel.add(lblAdminName);
+
+		fieldAdminName = new JTextField();
+		fieldAdminName.setColumns(10);
+		fieldAdminName.setBounds(79, 11, 300, 20);
+		panel.add(fieldAdminName);
+
+		JLabel lblAdminPasswd = new JLabel("Senha");
+		lblAdminPasswd.setBounds(10, 42, 42, 14);
+		panel.add(lblAdminPasswd);
+
+		fieldAdminPasswd = new JPasswordField();
+		fieldAdminPasswd.setBounds(79, 39, 300, 20);
+		panel.add(fieldAdminPasswd);
+
+		JButton btnAdminSave = new JButton("Salvar");
+		btnAdminSave.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					String name = fieldAdminName.getText();
+					char[] arrayPassword = fieldAdminPasswd.getPassword();
+					String password = "";
+					for (int i = 0; i < arrayPassword.length; i++) {
+						password += arrayPassword[i];
+					}
+					if (facade.registeringAdmin(name, password)) {
+						JOptionPane.showMessageDialog(getContentPane(),
+								"Administrador cadastrado com sucesso");
+						// limpando
+						fieldProdName.setText("");
+					} else {
+						JOptionPane.showMessageDialog(getContentPane(),
+
+								"Administrador Não cadastrado!!!", "Erro",
+
+								JOptionPane.ERROR_MESSAGE);
+					}
+				} catch (Exception e2) {
+				}
+			}
+		});
+		btnAdminSave.setBounds(153, 85, 130, 23);
+		panel.add(btnAdminSave);
 	}
 }
