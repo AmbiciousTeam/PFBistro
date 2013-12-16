@@ -128,6 +128,8 @@ public class ViewAdmin extends JFrame {
 		
 		JComboBox comboMenuSelectItem = new JComboBox();
 		comboMenuSelectItem.setBounds(270, 25, 250, 20);
+		
+		
 		panelSelectItens.add(comboMenuSelectItem);
 		
 		JButton btnMenuInsert = new JButton("Inserir");
@@ -203,6 +205,7 @@ public class ViewAdmin extends JFrame {
 						// limpando 
 						fieldProdName.setText("");
 						fieldProdPrice.setText("");
+						fieldProdName.requestFocus();
 					} else {
 						JOptionPane.showMessageDialog(getContentPane(),
 								"Produto Não cadastrado!!!", "Erro",
