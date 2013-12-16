@@ -45,6 +45,7 @@ public class ViewAdmin extends JFrame {
 	private JTextField fieldProdPrice;
 	private JTextField fieldAdminName;
 	private JPasswordField fieldAdminPasswd;
+	private JComboBox<String> comboMenuSelectCat;
 	private JComboBox<String> comboProdCategory;
 	private JScrollPane scrollAdminTable;
 	private JTable table;
@@ -113,11 +114,15 @@ public class ViewAdmin extends JFrame {
 		JLabel lblMenuSelectCat = new JLabel("Selecione uma categoria");
 		lblMenuSelectCat.setHorizontalAlignment(SwingConstants.CENTER);
 		lblMenuSelectCat.setFont(new Font("Tahoma", Font.BOLD, 12));
+		
 		lblMenuSelectCat.setBounds(20, 0, 230, 14);
 		panelSelectItens.add(lblMenuSelectCat);
 		
-		JComboBox comboMenuSelectCat = new JComboBox();
+		comboMenuSelectCat = new JComboBox<String>();
 		comboMenuSelectCat.setBounds(10, 25, 250, 20);
+		comboMenuSelectCat.addItem(EnumCategories.DRINKS.getCategory());
+		comboMenuSelectCat.addItem(EnumCategories.SNACK.getCategory());
+		comboMenuSelectCat.addItem(EnumCategories.PIZZA.getCategory());
 		panelSelectItens.add(comboMenuSelectCat);
 		
 		JLabel lblMenuSelectItem = new JLabel("Selecione um item");
@@ -190,6 +195,7 @@ public class ViewAdmin extends JFrame {
 		comboProdCategory.setBounds(79, 11, 300, 20);
 		comboProdCategory.addItem(EnumCategories.DRINKS.getCategory());
 		comboProdCategory.addItem(EnumCategories.SNACK.getCategory());
+		comboProdCategory.addItem(EnumCategories.PIZZA.getCategory());
 		panelProdItens.add(comboProdCategory);
 
 		JButton btnProdSave = new JButton("Salvar");
@@ -304,4 +310,5 @@ public class ViewAdmin extends JFrame {
 		btnAdminSave.setBounds(248, 85, 130, 23);
 		panelAdminItens.add(btnAdminSave);
 	}
+
 }
