@@ -2,10 +2,13 @@ package br.com.ambiciousteam.pfbistro.view;
 
 import java.awt.EventQueue;
 
+import javax.sound.midi.MidiDevice.Info;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
+import javax.swing.plaf.nimbus.NimbusLookAndFeel;
 
 import br.com.ambiciousteam.pfbistro.enummeration.EnumCategories;
 import br.com.ambiciousteam.pfbistro.facade.FacadeAdmin;
@@ -22,24 +25,29 @@ import javax.swing.JPasswordField;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.SwingConstants;
+import javax.swing.UIManager;
+import javax.swing.UIManager.LookAndFeelInfo;
 
 import java.awt.Font;
 import java.awt.Color;
 
 import javax.swing.JTable;
 import javax.swing.JScrollPane;
+import java.awt.ScrollPane;
 
 @SuppressWarnings("serial")
 public class ViewAdmin extends JFrame {
 
 	private JPanel contentPane;
 	private FacadeAdmin facade;
-	private JTable table;
+	private JTable tableAdminData;
 	private JTextField fieldProdName;
 	private JTextField fieldProdPrice;
 	private JTextField fieldAdminName;
 	private JPasswordField fieldAdminPasswd;
 	private JComboBox<String> comboProdCategory;
+	private JScrollPane scrollAdminTable;
+	private JTable table;
 
 	/**
 	 * Launch the application.
@@ -63,7 +71,7 @@ public class ViewAdmin extends JFrame {
 	 */
 	public ViewAdmin() {
 		facade = new FacadeAdminImpl();
-
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 640, 400);
 		getContentPane().setLayout(null);
@@ -98,51 +106,47 @@ public class ViewAdmin extends JFrame {
 		panelMenuReg.add(lblCadastroDeCardpio);
 		
 		JPanel panelSelectItens = new JPanel();
-		panelSelectItens.setBounds(10, 67, 250, 267);
+		panelSelectItens.setBounds(10, 67, 609, 54);
 		panelMenuReg.add(panelSelectItens);
 		panelSelectItens.setLayout(null);
 		
 		JLabel lblMenuSelectCat = new JLabel("Selecione uma categoria");
 		lblMenuSelectCat.setHorizontalAlignment(SwingConstants.CENTER);
 		lblMenuSelectCat.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblMenuSelectCat.setBounds(10, 11, 230, 14);
+		lblMenuSelectCat.setBounds(20, 0, 230, 14);
 		panelSelectItens.add(lblMenuSelectCat);
 		
 		JComboBox comboMenuSelectCat = new JComboBox();
-		comboMenuSelectCat.setBounds(20, 36, 220, 20);
+		comboMenuSelectCat.setBounds(10, 25, 250, 20);
 		panelSelectItens.add(comboMenuSelectCat);
 		
 		JLabel lblMenuSelectItem = new JLabel("Selecione um item");
 		lblMenuSelectItem.setHorizontalAlignment(SwingConstants.CENTER);
 		lblMenuSelectItem.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblMenuSelectItem.setBounds(10, 77, 230, 14);
+		lblMenuSelectItem.setBounds(288, 0, 230, 14);
 		panelSelectItens.add(lblMenuSelectItem);
 		
 		JComboBox comboMenuSelectItem = new JComboBox();
-		comboMenuSelectItem.setBounds(20, 102, 220, 20);
+		comboMenuSelectItem.setBounds(270, 25, 250, 20);
 		panelSelectItens.add(comboMenuSelectItem);
-		
-		JButton btnMenuSave = new JButton("Salvar");
-		btnMenuSave.setBounds(41, 233, 89, 23);
-		panelSelectItens.add(btnMenuSave);
-		
-		JButton btnMenuCancel = new JButton("Cancelar");
-		btnMenuCancel.setBounds(130, 233, 89, 23);
-		panelSelectItens.add(btnMenuCancel);
 		
 		JButton btnMenuInsert = new JButton("Inserir");
 		btnMenuInsert.setFont(new Font("Tahoma", Font.BOLD, 11));
-		btnMenuInsert.setBounds(41, 199, 178, 23);
+		btnMenuInsert.setBounds(528, 25, 81, 22);
 		panelSelectItens.add(btnMenuInsert);
 		
 		JPanel panelMountedMenu = new JPanel();
-		panelMountedMenu.setBounds(270, 67, 349, 267);
+		panelMountedMenu.setBounds(10, 120, 609, 214);
 		panelMenuReg.add(panelMountedMenu);
 		panelMountedMenu.setLayout(null);
 		
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(618, 67, -346, 267);
-		panelMenuReg.add(scrollPane);
+		JScrollPane scrollMenuItens = new JScrollPane();
+		scrollMenuItens.setBounds(0, 11, 609, 200);
+		panelMountedMenu.add(scrollMenuItens);
+		
+		table = new JTable();
+		table.setBounds(0, 11, 609, 200);
+		panelMountedMenu.add(table);
 
 		JLayeredPane paneProductReg = new JLayeredPane();
 		paneProductReg.setBackground(Color.LIGHT_GRAY);
@@ -234,31 +238,39 @@ public class ViewAdmin extends JFrame {
 		lblAdminReg.setBounds(106, 11, 513, 45);
 		panelAdminReg.add(lblAdminReg);
 
-		table = new JTable();
-		table.setBounds(10, 326, 609, -87);
-		panelAdminReg.add(table);
-
-		JPanel panel = new JPanel();
-		panel.setLayout(null);
-		panel.setBounds(119, 67, 390, 125);
-		panelAdminReg.add(panel);
+		tableAdminData = new JTable();
+		tableAdminData.setBorder(new LineBorder(Color.black));
+		tableAdminData.setGridColor(Color.black);
+		tableAdminData.setShowGrid(true);
+		tableAdminData.setBounds(10, 336, 609, -130);
+		panelAdminReg.add(tableAdminData);
+		
+		scrollAdminTable = new JScrollPane();
+		scrollAdminTable.getViewport().setBorder(null);
+//		scrollAdminTable.getViewport().add(tableAdminData);
+		
+		
+		JPanel panelAdminItens = new JPanel();
+		panelAdminItens.setLayout(null);
+		panelAdminItens.setBounds(10, 67, 609, 125);
+		panelAdminReg.add(panelAdminItens);
 
 		JLabel lblAdminName = new JLabel("Usuario");
-		lblAdminName.setBounds(10, 11, 62, 14);
-		panel.add(lblAdminName);
+		lblAdminName.setBounds(105, 11, 62, 14);
+		panelAdminItens.add(lblAdminName);
 
 		fieldAdminName = new JTextField();
 		fieldAdminName.setColumns(10);
-		fieldAdminName.setBounds(79, 11, 300, 20);
-		panel.add(fieldAdminName);
+		fieldAdminName.setBounds(174, 11, 300, 20);
+		panelAdminItens.add(fieldAdminName);
 
 		JLabel lblAdminPasswd = new JLabel("Senha");
-		lblAdminPasswd.setBounds(10, 42, 42, 14);
-		panel.add(lblAdminPasswd);
+		lblAdminPasswd.setBounds(105, 42, 42, 14);
+		panelAdminItens.add(lblAdminPasswd);
 
 		fieldAdminPasswd = new JPasswordField();
-		fieldAdminPasswd.setBounds(79, 39, 300, 20);
-		panel.add(fieldAdminPasswd);
+		fieldAdminPasswd.setBounds(174, 39, 300, 20);
+		panelAdminItens.add(fieldAdminPasswd);
 
 		JButton btnAdminSave = new JButton("Salvar");
 		btnAdminSave.addActionListener(new ActionListener() {
@@ -286,7 +298,7 @@ public class ViewAdmin extends JFrame {
 				}
 			}
 		});
-		btnAdminSave.setBounds(153, 85, 130, 23);
-		panel.add(btnAdminSave);
+		btnAdminSave.setBounds(248, 85, 130, 23);
+		panelAdminItens.add(btnAdminSave);
 	}
 }
