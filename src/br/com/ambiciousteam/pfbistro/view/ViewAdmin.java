@@ -2,14 +2,11 @@ package br.com.ambiciousteam.pfbistro.view;
 
 import java.awt.EventQueue;
 
-import javax.sound.midi.MidiDevice.Info;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
-import javax.swing.plaf.nimbus.NimbusLookAndFeel;
-
 import br.com.ambiciousteam.pfbistro.enummeration.EnumCategories;
 import br.com.ambiciousteam.pfbistro.facade.FacadeAdmin;
 import br.com.ambiciousteam.pfbistro.facade.FacadeAdminImpl;
@@ -25,15 +22,11 @@ import javax.swing.JPasswordField;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.SwingConstants;
-import javax.swing.UIManager;
-import javax.swing.UIManager.LookAndFeelInfo;
-
 import java.awt.Font;
 import java.awt.Color;
 
 import javax.swing.JTable;
 import javax.swing.JScrollPane;
-import java.awt.ScrollPane;
 
 @SuppressWarnings("serial")
 public class ViewAdmin extends JFrame {
