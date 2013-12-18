@@ -20,16 +20,35 @@ public class LogicImplTest {
 
 
 	@Test
+	
+	/**
+	 *This test is for implementation LOGIN method, 
+	 * first it is returning a FALSE, then the implementation must obtain a return TRUE.
+	 */
+
 		public void testLoginWorks() {
 		assertEquals(true, logic.login(admin));
 	}
 	
 	@Test
+	
+	/**
+	 *This test is for implementation LOGIN method, 
+	 * first it is returning a TRUE, then the implementation must obtain a return FALSE,
+	 * except when administrator and password are wrong
+	 */
+	
 	public void testLoginDontWorks() {
 	assertEquals(false, logic.login(admin));
 }
 
 	@Test
+	
+	/**
+	 *This test is for implementation CREATEANDCADASTREPRODUCT method, 
+	 * first it is returning a TRUE it is correct.
+	 */
+	
 	public void testCreateAndCadastreProductWorks() {
 
 		//Create array for verifying if createAndCadastreProduct work with informations named equals;  
@@ -43,6 +62,12 @@ public class LogicImplTest {
 		//In test with JUnit the program can save in database the two information, but this product can't saved.	
 				
 	@Test
+	
+	/**
+	 *This test is for implementation CREATEANDCADASTREPRODUCT method, 
+	 * first it is returning a TRUE, but the same method could not save equal data in the database.
+	 */
+	
 	public void testCreateAndCadastreProductDontWorks() {
 
 				String[] array= {"Coca-Cola", "6.50", "Bebidas"};
@@ -53,6 +78,12 @@ public class LogicImplTest {
 	}
 	
 	@Test
+	
+	/**
+	 *This test is for implementation CREATEANDCADASTREPRODUCT method, 
+	 * first it is returning a TRUE, but the same method could not save empty data to the database.
+	 */
+	
 	public void testCreateAndCadastreProductNoString() {
 
 				String[] array= {"", "6.50", ""};
@@ -64,6 +95,12 @@ public class LogicImplTest {
 		
 	
 	@Test
+	
+	/**
+	 *This test is for implementation REGISTERINGADMIN method, 
+	 * first it is returning a TRUE it is correct.
+	 */
+	
 	public void testRegisteringAdminWorks() {
 		
 		//Create array for verifying if registeringAdmin work with two administrators and passwords named equals;  
@@ -76,6 +113,12 @@ public class LogicImplTest {
 		//In test with JUnit the program can save in database the repeated information and saves the information "".	
 
 	@Test
+	
+	/**
+	 *This test is for implementation REGISTERINGADMIN method, 
+	 * first it is returning a TRUE, but the same method could not save equal data in the database.
+	 */
+	
 	public void testRegisteringAdminDontWorks() {
 		
 		//Create array for verifying if registeringAdmin work with two administrators and passwords named equals;  
@@ -85,9 +128,15 @@ public class LogicImplTest {
 	}
 
 	@Test
+	
+	/**
+	 *This test is for implementation REGISTERINGADMIN method, 
+	 * first it is returning a TRUE, but the same method could not save empty data to the database.
+	 */
+	
 	public void testRegisteringAdminNoString() {
 		
-		//Create array for verifying if registeringAdmin work with two administrators and passwords named equals;  
+		//Create array for verifying if registeringAdmin work with empty administrators and passwords;  
 		String[] array= {"", ""};
 		assertEquals(false, logic.registeringAdmin(array[0], array[1]));
 		
