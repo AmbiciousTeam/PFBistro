@@ -3,10 +3,13 @@ package br.com.ambiciousteam.pfbistro.view;
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -20,19 +23,26 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
+import org.hibernate.metamodel.source.binder.JpaCallbackClass;
+
+import br.com.ambiciousteam.pfbistro.dao.MenuTableModel;
 import br.com.ambiciousteam.pfbistro.dao.Queries;
 import br.com.ambiciousteam.pfbistro.enummeration.EnumCategories;
 import br.com.ambiciousteam.pfbistro.facade.FacadeAdmin;
 import br.com.ambiciousteam.pfbistro.facade.FacadeAdminImpl;
 import br.com.ambiciousteam.pfbistro.model.Product;
 
+import java.awt.Component;
+
 @SuppressWarnings("serial")
 public class ViewAdmin extends JFrame {
 
 	private JPanel contentPane;
+	private JPanel panelTableProd;
 	private FacadeAdmin facade;
 	private JTable tableAdminData;
 	private JTextField fieldProdName;
@@ -42,8 +52,9 @@ public class ViewAdmin extends JFrame {
 	private JComboBox<String> comboMenuSelectCat;
 	private JComboBox<String> comboProdCategory;
 	private JComboBox<Product> comboMenuSelectItem;
-	private JScrollPane scrollAdminTable;
-	private JTable table;
+	private JTable tableProductData;
+	private JScrollPane scrollTableProduct;
+	private JScrollPane scrollTableAdmin;
 	private String selectedCategory;
 
 	/**
@@ -111,49 +122,49 @@ public class ViewAdmin extends JFrame {
 		lblMenuSelectCat.setHorizontalAlignment(SwingConstants.CENTER);
 		lblMenuSelectCat.setFont(new Font("Tahoma", Font.BOLD, 12));
 
-		lblMenuSelectCat.setBounds(20, 0, 230, 14);
+		lblMenuSelectCat.setBounds(0, 0, 180, 14);
 		panelSelectItens.add(lblMenuSelectCat);
 
-		comboMenuSelectItem = new JComboBox();		
-		comboMenuSelectItem.setBounds(270, 25, 250, 20);
-		
+		comboMenuSelectItem = new JComboBox<>();		
+		comboMenuSelectItem.setBounds(190, 25, 330, 20);
+
 		comboMenuSelectCat = new JComboBox<String>();
-		comboMenuSelectCat.setBounds(10, 25, 250, 20);
+		comboMenuSelectCat.setBounds(0, 25, 180, 20);
 		comboMenuSelectCat.addItem(EnumCategories.DRINKS.getCategory());
 		comboMenuSelectCat.addItem(EnumCategories.SNACK.getCategory());
 		comboMenuSelectCat.addItem(EnumCategories.PIZZA.getCategory());
 		panelSelectItens.add(comboMenuSelectCat);
 		setSelectedCategory(comboMenuSelectCat.getSelectedItem().toString());
 
-//		System.out.println(comboMenuSelectCat.);
-//		comboMenuSelectCat.addMouseListener(new java.awt.event.MouseAdapter() {
-//			public void mouseClicked(java.awt.event.MouseEvent evt) {
-//				while (true) {
-				//comboMenuSelectCat.getSelectedItem().
-					//System.out.println(getSelectedCategory());
-//				}
-//			}
-//		});
-		
-//FALTA CHAMAR A CONSULTA
-//		comboMenuSelectCat.addActionListener(new ActionListener() {
-			
-//			@Override
-//			public void actionPerformed(ActionEvent arg0) {
-//				setSelectedCategory(comboMenuSelectCat.getSelectedItem().toString());
-//				facade.newQuery
-//				List<Product> queryProdByCat = q.queryProdByCat(getSelectedCategory());
-//				for (Product product : queryProdByCat) {
-//					comboMenuSelectItem.addItem(product);
-//				}
-//				
-//			}
-//		});
+		//		System.out.println(comboMenuSelectCat.);
+		//		comboMenuSelectCat.addMouseListener(new java.awt.event.MouseAdapter() {
+		//			public void mouseClicked(java.awt.event.MouseEvent evt) {
+		//				while (true) {
+		//comboMenuSelectCat.getSelectedItem().
+		//System.out.println(getSelectedCategory());
+		//				}
+		//			}
+		//		});
+
+		//FALTA CHAMAR A CONSULTA
+		//		comboMenuSelectCat.addActionListener(new ActionListener() {
+
+		//			@Override
+		//			public void actionPerformed(ActionEvent arg0) {
+		//				setSelectedCategory(comboMenuSelectCat.getSelectedItem().toString());
+		//				facade.newQuery
+		//				List<Product> queryProdByCat = q.queryProdByCat(getSelectedCategory());
+		//				for (Product product : queryProdByCat) {
+		//					comboMenuSelectItem.addItem(product);
+		//				}
+		//				
+		//			}
+		//		});
 
 		JLabel lblMenuSelectItem = new JLabel("Selecione um item");
 		lblMenuSelectItem.setHorizontalAlignment(SwingConstants.CENTER);
 		lblMenuSelectItem.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblMenuSelectItem.setBounds(288, 0, 230, 14);
+		lblMenuSelectItem.setBounds(190, 0, 328, 14);
 		panelSelectItens.add(lblMenuSelectItem);
 
 
@@ -165,17 +176,17 @@ public class ViewAdmin extends JFrame {
 		panelSelectItens.add(btnMenuInsert);
 
 		JPanel panelMountedMenu = new JPanel();
-		panelMountedMenu.setBounds(10, 120, 609, 214);
+		panelMountedMenu.setBounds(10, 132, 609, 202);
 		panelMenuReg.add(panelMountedMenu);
 		panelMountedMenu.setLayout(null);
 
 		JScrollPane scrollMenuItens = new JScrollPane();
-		scrollMenuItens.setBounds(0, 11, 609, 200);
+		scrollMenuItens.setBounds(0, 0, 609, 202);
 		panelMountedMenu.add(scrollMenuItens);
 
-		table = new JTable();
-		table.setBounds(0, 11, 609, 200);
-		panelMountedMenu.add(table);
+		//		table = new JTable();
+		//		table.setBounds(0, 11, 609, 200);
+		//		panelMountedMenu.add(table);
 
 		JLayeredPane paneProductReg = new JLayeredPane();
 		paneProductReg.setBackground(Color.LIGHT_GRAY);
@@ -187,34 +198,35 @@ public class ViewAdmin extends JFrame {
 		panelProdReg.setLayout(null);
 
 		JPanel panelProdItens = new JPanel();
-		panelProdItens.setBounds(119, 67, 390, 125);
+		panelProdItens.setBounds(10, 67, 609, 115);
+		panelProdItens.setBorder(BorderFactory.createTitledBorder(""));
 		panelProdReg.add(panelProdItens);
 		panelProdItens.setLayout(null);
 
 		JLabel lblProdName = new JLabel("Nome ");
-		lblProdName.setBounds(10, 42, 62, 14);
+		lblProdName.setBounds(110, 42, 62, 14);
 		panelProdItens.add(lblProdName);
 
 		fieldProdName = new JTextField();
 		fieldProdName.setColumns(10);
-		fieldProdName.setBounds(79, 39, 300, 20);
+		fieldProdName.setBounds(172, 39, 300, 20);
 		panelProdItens.add(fieldProdName);
 
 		JLabel lblProdPrice = new JLabel("Pre\u00E7o");
-		lblProdPrice.setBounds(10, 67, 62, 14);
+		lblProdPrice.setBounds(110, 67, 62, 14);
 		panelProdItens.add(lblProdPrice);
 
 		fieldProdPrice = new JTextField();
 		fieldProdPrice.setColumns(10);
-		fieldProdPrice.setBounds(79, 64, 120, 20);
+		fieldProdPrice.setBounds(172, 64, 120, 20);
 		panelProdItens.add(fieldProdPrice);
 
 		JLabel lblProdCategory = new JLabel("Categoria");
-		lblProdCategory.setBounds(10, 11, 62, 14);
+		lblProdCategory.setBounds(110, 14, 62, 14);
 		panelProdItens.add(lblProdCategory);
 
 		comboProdCategory = new JComboBox<String>();
-		comboProdCategory.setBounds(79, 11, 300, 20);
+		comboProdCategory.setBounds(172, 11, 300, 20);
 		comboProdCategory.addItem(EnumCategories.DRINKS.getCategory());
 		comboProdCategory.addItem(EnumCategories.SNACK.getCategory());
 		comboProdCategory.addItem(EnumCategories.PIZZA.getCategory());
@@ -246,8 +258,21 @@ public class ViewAdmin extends JFrame {
 				}
 			}
 		});
-		btnProdSave.setBounds(153, 95, 130, 23);
+		btnProdSave.setBounds(256, 87, 130, 23);
 		panelProdItens.add(btnProdSave);
+
+		panelTableProd = new JPanel();
+		panelTableProd.setLayout(null);
+		panelTableProd.setBounds(10, 192, 609, 142);
+
+		panelProdReg.add(panelTableProd);
+
+		tableProductData = new JTable();
+		tableProductData.setBounds(10, 132, 609, 202);
+
+		scrollTableProduct = new JScrollPane(tableProductData);
+		scrollTableProduct.setBounds(0, 0, 609, 142);
+		panelTableProd.add(scrollTableProduct);
 
 		JLabel lblCadastroDeProdutos = new JLabel("Cadastro de Produtos");
 		lblCadastroDeProdutos.setBounds(106, 11, 513, 45);
@@ -269,21 +294,11 @@ public class ViewAdmin extends JFrame {
 		lblAdminReg.setBounds(106, 11, 513, 45);
 		panelAdminReg.add(lblAdminReg);
 
-		tableAdminData = new JTable();
-		tableAdminData.setBorder(new LineBorder(Color.black));
-		tableAdminData.setGridColor(Color.black);
-		tableAdminData.setShowGrid(true);
-		tableAdminData.setBounds(10, 336, 609, -130);
-		panelAdminReg.add(tableAdminData);
-
-		scrollAdminTable = new JScrollPane();
-		scrollAdminTable.getViewport().setBorder(null);
-		//		scrollAdminTable.getViewport().add(tableAdminData);
-
 
 		JPanel panelAdminItens = new JPanel();
 		panelAdminItens.setLayout(null);
-		panelAdminItens.setBounds(10, 67, 609, 125);
+		panelAdminItens.setBounds(10, 67, 609, 115);
+		panelAdminItens.setBorder(BorderFactory.createTitledBorder(""));
 		panelAdminReg.add(panelAdminItens);
 
 		JLabel lblAdminName = new JLabel("Usuario");
@@ -331,6 +346,25 @@ public class ViewAdmin extends JFrame {
 		});
 		btnAdminSave.setBounds(248, 85, 130, 23);
 		panelAdminItens.add(btnAdminSave);
+
+		JPanel panelTableAdmin = new JPanel();
+		panelTableAdmin.setLayout(null);
+		panelTableAdmin.setBounds(10, 192, 609, 142);
+		panelAdminReg.add(panelTableAdmin);
+
+		scrollTableAdmin = new JScrollPane((Component) null);
+		scrollTableAdmin.setBounds(0, 0, 609, 142);
+
+		tableAdminData = new JTable();
+		tableAdminData.setBounds(0, 0, 609, -130);
+		tableAdminData.setBorder(new LineBorder(Color.black));
+		tableAdminData.setGridColor(Color.black);
+		tableAdminData.setShowGrid(true);
+
+		scrollTableAdmin.add(tableAdminData);
+		
+		panelTableAdmin.add(scrollTableAdmin);
+		
 	}
 
 	public String getSelectedCategory() {
@@ -340,8 +374,4 @@ public class ViewAdmin extends JFrame {
 	public void setSelectedCategory(String selectedCategory) {
 		this.selectedCategory = selectedCategory;
 	}
-
-
-
-
 }
