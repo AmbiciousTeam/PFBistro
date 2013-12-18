@@ -74,6 +74,10 @@ public class Product implements Serializable{
 		this.administrator = administrator;
 	}
 	
-	
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return getProductName()+" - R$ "+getProductPrice();
+	}
 	
 }

@@ -19,5 +19,6 @@ public interface DaoIF<Serializable> {
 	public Serializable getById(Class<Serializable> classe, long pk);
 
 	public List<Serializable> getAll(Class<Serializable> classe);
-
+	
+	List<Serializable> getProductByCategory(String category);
 }

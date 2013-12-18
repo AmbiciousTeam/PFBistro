@@ -6,6 +6,10 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.PersistenceException;
+import javax.persistence.Query;
+
+import br.com.ambiciousteam.pfbistro.model.Product;
 
 public class DaoImpl implements DaoIF<Serializable>{
 	private EntityManager entityManager;
@@ -57,8 +61,12 @@ public class DaoImpl implements DaoIF<Serializable>{
 		// TODO Auto-generated method stub
 		return null;
 	}
-		
+
+	@Override
+	public List<Serializable> getProductByCategory(String category){
+		String hql = "FROM Product WHERE productcategory = '"+category+"'";
+		Query createQuery = getEntityManager().createQuery(hql);
+			return createQuery.getResultList();
+	}
 	
-
-
 }

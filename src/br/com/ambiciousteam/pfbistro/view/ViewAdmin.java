@@ -1,32 +1,33 @@
 package br.com.ambiciousteam.pfbistro.view;
 
+import java.awt.Color;
 import java.awt.EventQueue;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.List;
 
+import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JLayeredPane;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.JScrollPane;
+import javax.swing.JTabbedPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
+
+import br.com.ambiciousteam.pfbistro.dao.Queries;
 import br.com.ambiciousteam.pfbistro.enummeration.EnumCategories;
 import br.com.ambiciousteam.pfbistro.facade.FacadeAdmin;
 import br.com.ambiciousteam.pfbistro.facade.FacadeAdminImpl;
-
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-
-import javax.swing.JTextField;
-import javax.swing.JLabel;
-import javax.swing.JTabbedPane;
-import javax.swing.JLayeredPane;
-import javax.swing.JPasswordField;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.SwingConstants;
-import java.awt.Font;
-import java.awt.Color;
-
-import javax.swing.JTable;
-import javax.swing.JScrollPane;
+import br.com.ambiciousteam.pfbistro.model.Product;
 
 @SuppressWarnings("serial")
 public class ViewAdmin extends JFrame {
@@ -40,8 +41,10 @@ public class ViewAdmin extends JFrame {
 	private JPasswordField fieldAdminPasswd;
 	private JComboBox<String> comboMenuSelectCat;
 	private JComboBox<String> comboProdCategory;
+	private JComboBox<Product> comboMenuSelectItem;
 	private JScrollPane scrollAdminTable;
 	private JTable table;
+	private String selectedCategory;
 
 	/**
 	 * Launch the application.
@@ -65,7 +68,7 @@ public class ViewAdmin extends JFrame {
 	 */
 	public ViewAdmin() {
 		facade = new FacadeAdminImpl();
-		
+
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 640, 400);
 		getContentPane().setLayout(null);
@@ -98,18 +101,21 @@ public class ViewAdmin extends JFrame {
 		lblCadastroDeCardpio.setFont(new Font("Tahoma", Font.BOLD, 18));
 		lblCadastroDeCardpio.setBounds(106, 11, 513, 45);
 		panelMenuReg.add(lblCadastroDeCardpio);
-		
+
 		JPanel panelSelectItens = new JPanel();
 		panelSelectItens.setBounds(10, 67, 609, 54);
 		panelMenuReg.add(panelSelectItens);
 		panelSelectItens.setLayout(null);
-		
+
 		JLabel lblMenuSelectCat = new JLabel("Selecione uma categoria");
 		lblMenuSelectCat.setHorizontalAlignment(SwingConstants.CENTER);
 		lblMenuSelectCat.setFont(new Font("Tahoma", Font.BOLD, 12));
-		
+
 		lblMenuSelectCat.setBounds(20, 0, 230, 14);
 		panelSelectItens.add(lblMenuSelectCat);
+
+		comboMenuSelectItem = new JComboBox();		
+		comboMenuSelectItem.setBounds(270, 25, 250, 20);
 		
 		comboMenuSelectCat = new JComboBox<String>();
 		comboMenuSelectCat.setBounds(10, 25, 250, 20);
@@ -117,33 +123,56 @@ public class ViewAdmin extends JFrame {
 		comboMenuSelectCat.addItem(EnumCategories.SNACK.getCategory());
 		comboMenuSelectCat.addItem(EnumCategories.PIZZA.getCategory());
 		panelSelectItens.add(comboMenuSelectCat);
+		setSelectedCategory(comboMenuSelectCat.getSelectedItem().toString());
+
+//		System.out.println(comboMenuSelectCat.);
+//		comboMenuSelectCat.addMouseListener(new java.awt.event.MouseAdapter() {
+//			public void mouseClicked(java.awt.event.MouseEvent evt) {
+//				while (true) {
+				//comboMenuSelectCat.getSelectedItem().
+					//System.out.println(getSelectedCategory());
+//				}
+//			}
+//		});
 		
+//FALTA CHAMAR A CONSULTA
+//		comboMenuSelectCat.addActionListener(new ActionListener() {
+			
+//			@Override
+//			public void actionPerformed(ActionEvent arg0) {
+//				setSelectedCategory(comboMenuSelectCat.getSelectedItem().toString());
+//				facade.newQuery
+//				List<Product> queryProdByCat = q.queryProdByCat(getSelectedCategory());
+//				for (Product product : queryProdByCat) {
+//					comboMenuSelectItem.addItem(product);
+//				}
+//				
+//			}
+//		});
+
 		JLabel lblMenuSelectItem = new JLabel("Selecione um item");
 		lblMenuSelectItem.setHorizontalAlignment(SwingConstants.CENTER);
 		lblMenuSelectItem.setFont(new Font("Tahoma", Font.BOLD, 12));
 		lblMenuSelectItem.setBounds(288, 0, 230, 14);
 		panelSelectItens.add(lblMenuSelectItem);
-		
-		JComboBox comboMenuSelectItem = new JComboBox();
-		comboMenuSelectItem.setBounds(270, 25, 250, 20);
-		
-		
+
+
 		panelSelectItens.add(comboMenuSelectItem);
-		
+
 		JButton btnMenuInsert = new JButton("Inserir");
 		btnMenuInsert.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnMenuInsert.setBounds(528, 25, 81, 22);
 		panelSelectItens.add(btnMenuInsert);
-		
+
 		JPanel panelMountedMenu = new JPanel();
 		panelMountedMenu.setBounds(10, 120, 609, 214);
 		panelMenuReg.add(panelMountedMenu);
 		panelMountedMenu.setLayout(null);
-		
+
 		JScrollPane scrollMenuItens = new JScrollPane();
 		scrollMenuItens.setBounds(0, 11, 609, 200);
 		panelMountedMenu.add(scrollMenuItens);
-		
+
 		table = new JTable();
 		table.setBounds(0, 11, 609, 200);
 		panelMountedMenu.add(table);
@@ -246,12 +275,12 @@ public class ViewAdmin extends JFrame {
 		tableAdminData.setShowGrid(true);
 		tableAdminData.setBounds(10, 336, 609, -130);
 		panelAdminReg.add(tableAdminData);
-		
+
 		scrollAdminTable = new JScrollPane();
 		scrollAdminTable.getViewport().setBorder(null);
-//		scrollAdminTable.getViewport().add(tableAdminData);
-		
-		
+		//		scrollAdminTable.getViewport().add(tableAdminData);
+
+
 		JPanel panelAdminItens = new JPanel();
 		panelAdminItens.setLayout(null);
 		panelAdminItens.setBounds(10, 67, 609, 125);
@@ -303,5 +332,16 @@ public class ViewAdmin extends JFrame {
 		btnAdminSave.setBounds(248, 85, 130, 23);
 		panelAdminItens.add(btnAdminSave);
 	}
+
+	public String getSelectedCategory() {
+		return selectedCategory;
+	}
+
+	public void setSelectedCategory(String selectedCategory) {
+		this.selectedCategory = selectedCategory;
+	}
+
+
+
 
 }
