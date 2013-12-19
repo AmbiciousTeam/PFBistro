@@ -1,6 +1,7 @@
 package br.com.ambiciousteam.pfbistro.logic;
 
 import java.io.Serializable;
+import java.util.List;
 
 import br.com.ambiciousteam.pfbistro.abstractFactory.FactoryIF;
 import br.com.ambiciousteam.pfbistro.abstractFactory.FactoryImpl;
@@ -49,6 +50,11 @@ public class LogicImpl implements LogicIF{
 			return false;
 		}
 		return true;
+	}
+	@Override
+	public List<Product> searchAllProducts(String category) {
+		// TODO Auto-generated method stub
+		return dao.getProductByCategory(category);
 	}
 
 }

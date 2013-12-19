@@ -1,7 +1,10 @@
 package br.com.ambiciousteam.pfbistro.facade;
 
+import java.util.List;
+
 import br.com.ambiciousteam.pfbistro.logic.LogicIF;
 import br.com.ambiciousteam.pfbistro.logic.LogicImpl;
+import br.com.ambiciousteam.pfbistro.model.Product;
 
 public class FacadeAdminImpl implements FacadeAdmin {
 	
@@ -27,5 +30,11 @@ public class FacadeAdminImpl implements FacadeAdmin {
 	public boolean registeringAdmin(String name, String password) {
 		return logic.registeringAdmin(name, password);	
 	}
-
+	
+	@Override
+	public List<Product> getAllProducts(String category) {
+		
+		return logic.searchAllProducts(category);
+	}
+	
 }

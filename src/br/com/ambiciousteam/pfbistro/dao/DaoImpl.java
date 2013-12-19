@@ -63,7 +63,7 @@ public class DaoImpl implements DaoIF<Serializable>{
 	}
 
 	@Override
-	public List<Serializable> getProductByCategory(String category){
+	public List<Product> getProductByCategory(String category){
 		String hql = "FROM Product WHERE productcategory = '"+category+"'";
 		Query createQuery = getEntityManager().createQuery(hql);
 			return createQuery.getResultList();

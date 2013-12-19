@@ -1,42 +1,27 @@
 package br.com.ambiciousteam.pfbistro.view;
 
-import java.awt.Color;
-import java.awt.EventQueue;
 import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 
-import javax.swing.BorderFactory;
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
-import javax.swing.JOptionPane;
+import javax.swing.JList;
 import javax.swing.JPanel;
-import javax.swing.JPasswordField;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
-import javax.swing.JTable;
-import javax.swing.JTextField;
 import javax.swing.SwingConstants;
-import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
-import javax.swing.border.LineBorder;
 
-import org.hibernate.metamodel.source.binder.JpaCallbackClass;
-
-import br.com.ambiciousteam.pfbistro.dao.MenuTableModel;
-import br.com.ambiciousteam.pfbistro.dao.Queries;
 import br.com.ambiciousteam.pfbistro.enummeration.EnumCategories;
 import br.com.ambiciousteam.pfbistro.facade.FacadeAdmin;
 import br.com.ambiciousteam.pfbistro.facade.FacadeAdminImpl;
 import br.com.ambiciousteam.pfbistro.model.Product;
-
-import java.awt.Component;
 
 @SuppressWarnings("serial")
 public class ViewClient extends JFrame {
@@ -46,23 +31,25 @@ public class ViewClient extends JFrame {
 	private JComboBox<String> comboMenuSelectCat;
 	private JComboBox<Product> comboMenuSelectItem;
 	private String selectedCategory;
+	private JScrollPane scrollMenuItens;
+	private JList list;
 
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					ViewAdmin frame = new ViewAdmin();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+	// public static void main(String[] args) {
+	//
+	// EventQueue.invokeLater(new Runnable() {
+	// public void run() {
+	// try {
+	// ViewAdmin frame = new ViewAdmin();
+	// frame.setVisible(true);
+	// } catch (Exception e) {
+	// e.printStackTrace();
+	// }
+	// }
+	// });
+	// }
 
 	/**
 	 * Create the frame.
@@ -115,7 +102,7 @@ public class ViewClient extends JFrame {
 		lblMenuSelectCat.setBounds(0, 0, 180, 14);
 		panelSelectItens.add(lblMenuSelectCat);
 
-		comboMenuSelectItem = new JComboBox<>();		
+		comboMenuSelectItem = new JComboBox<>();
 		comboMenuSelectItem.setBounds(190, 25, 330, 20);
 
 		comboMenuSelectCat = new JComboBox<String>();
@@ -126,30 +113,20 @@ public class ViewClient extends JFrame {
 		panelSelectItens.add(comboMenuSelectCat);
 		setSelectedCategory(comboMenuSelectCat.getSelectedItem().toString());
 
-		//		System.out.println(comboMenuSelectCat.);
-		//		comboMenuSelectCat.addMouseListener(new java.awt.event.MouseAdapter() {
-		//			public void mouseClicked(java.awt.event.MouseEvent evt) {
-		//				while (true) {
-		//comboMenuSelectCat.getSelectedItem().
-		//System.out.println(getSelectedCategory());
-		//				}
-		//			}
-		//		});
+		comboMenuSelectCat.addActionListener(new ActionListener() {
 
-		//FALTA CHAMAR A CONSULTA
-		//		comboMenuSelectCat.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				setSelectedCategory(comboMenuSelectCat.getSelectedItem()
+						.toString());
+				List<Product> allProducts = facade
+						.getAllProducts(getSelectedCategory());
+				for (Product product : allProducts) {
+					comboMenuSelectItem.addItem(product);
+				}
 
-		//			@Override
-		//			public void actionPerformed(ActionEvent arg0) {
-		//				setSelectedCategory(comboMenuSelectCat.getSelectedItem().toString());
-		//				facade.newQuery
-		//				List<Product> queryProdByCat = q.queryProdByCat(getSelectedCategory());
-		//				for (Product product : queryProdByCat) {
-		//					comboMenuSelectItem.addItem(product);
-		//				}
-		//				
-		//			}
-		//		});
+			}
+		});
 
 		JLabel lblMenuSelectItem = new JLabel("Selecione um item");
 		lblMenuSelectItem.setHorizontalAlignment(SwingConstants.CENTER);
@@ -157,22 +134,37 @@ public class ViewClient extends JFrame {
 		lblMenuSelectItem.setBounds(190, 0, 328, 14);
 		panelSelectItens.add(lblMenuSelectItem);
 
-
 		panelSelectItens.add(comboMenuSelectItem);
-
-		JButton btnMenuInsert = new JButton("Inserir");
-		btnMenuInsert.setFont(new Font("Tahoma", Font.BOLD, 11));
-		btnMenuInsert.setBounds(528, 25, 81, 22);
-		panelSelectItens.add(btnMenuInsert);
 
 		JPanel panelMountedMenu = new JPanel();
 		panelMountedMenu.setBounds(10, 132, 609, 202);
 		panelMenuReg.add(panelMountedMenu);
 		panelMountedMenu.setLayout(null);
 
-		JScrollPane scrollMenuItens = new JScrollPane();
+		list = new JList();
+
+		scrollMenuItens = new JScrollPane();
 		scrollMenuItens.setBounds(0, 0, 609, 202);
+		// scrollMenuItens.add(list);
 		panelMountedMenu.add(scrollMenuItens);
+		scrollMenuItens.setColumnHeaderView(list);
+		scrollMenuItens.setViewportView(list);
+
+		JButton btnMenuInsert = new JButton("Inserir");
+		btnMenuInsert.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnMenuInsert.setBounds(528, 25, 81, 22);
+		panelSelectItens.add(btnMenuInsert);
+		btnMenuInsert.addActionListener(new ActionListener() {
+
+			// auxiliary attribute to insert data (products) in the list
+			DefaultListModel modelo = new DefaultListModel();
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				modelo.addElement(comboMenuSelectItem.getSelectedItem());
+				list.setModel(modelo);
+			}
+		});
 
 	}
 

@@ -1,10 +1,8 @@
 package br.com.ambiciousteam.pfbistro.view;
 
 import java.awt.Color;
-import java.awt.EventQueue;
+import java.awt.Component;
 import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
@@ -23,20 +21,13 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
-import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
-import org.hibernate.metamodel.source.binder.JpaCallbackClass;
-
-import br.com.ambiciousteam.pfbistro.dao.MenuTableModel;
-import br.com.ambiciousteam.pfbistro.dao.Queries;
 import br.com.ambiciousteam.pfbistro.enummeration.EnumCategories;
 import br.com.ambiciousteam.pfbistro.facade.FacadeAdmin;
 import br.com.ambiciousteam.pfbistro.facade.FacadeAdminImpl;
 import br.com.ambiciousteam.pfbistro.model.Product;
-
-import java.awt.Component;
 
 @SuppressWarnings("serial")
 public class ViewAdmin extends JFrame {
@@ -60,19 +51,19 @@ public class ViewAdmin extends JFrame {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					ViewAdmin frame = new ViewAdmin();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+	// public static void main(String[] args) {
+	//
+	// EventQueue.invokeLater(new Runnable() {
+	// public void run() {
+	// try {
+	// ViewAdmin frame = new ViewAdmin();
+	// frame.setVisible(true);
+	// } catch (Exception e) {
+	// e.printStackTrace();
+	// }
+	// }
+	// });
+	// }
 
 	/**
 	 * Create the frame.
@@ -136,30 +127,29 @@ public class ViewAdmin extends JFrame {
 		panelSelectItens.add(comboMenuSelectCat);
 		setSelectedCategory(comboMenuSelectCat.getSelectedItem().toString());
 
-		//		System.out.println(comboMenuSelectCat.);
-		//		comboMenuSelectCat.addMouseListener(new java.awt.event.MouseAdapter() {
-		//			public void mouseClicked(java.awt.event.MouseEvent evt) {
-		//				while (true) {
-		//comboMenuSelectCat.getSelectedItem().
-		//System.out.println(getSelectedCategory());
-		//				}
-		//			}
-		//		});
+//				System.out.println(comboMenuSelectCat.);
+//		comboMenuSelectCat.addMouseListener(new java.awt.event.MouseAdapter() {
+//		public void mouseClicked(java.awt.event.MouseEvent evt) {
+//		while (true) {
+//		comboMenuSelectCat.getSelectedItem().
+//		System.out.println(getSelectedCategory());
+//						}
+//					}
+//		});
 
-		//FALTA CHAMAR A CONSULTA
-		//		comboMenuSelectCat.addActionListener(new ActionListener() {
+//		FALTA CHAMAR A CONSULTA
+				comboMenuSelectCat.addActionListener(new ActionListener() {
 
-		//			@Override
-		//			public void actionPerformed(ActionEvent arg0) {
-		//				setSelectedCategory(comboMenuSelectCat.getSelectedItem().toString());
-		//				facade.newQuery
-		//				List<Product> queryProdByCat = q.queryProdByCat(getSelectedCategory());
-		//				for (Product product : queryProdByCat) {
-		//					comboMenuSelectItem.addItem(product);
-		//				}
-		//				
-		//			}
-		//		});
+					@Override
+					public void actionPerformed(ActionEvent arg0) {
+						setSelectedCategory(comboMenuSelectCat.getSelectedItem().toString());
+						List<Product> allProducts = facade.getAllProducts(getSelectedCategory());				
+						for (Product product : allProducts) {
+							comboMenuSelectItem.addItem(product);
+						}
+						
+					}
+				});
 
 		JLabel lblMenuSelectItem = new JLabel("Selecione um item");
 		lblMenuSelectItem.setHorizontalAlignment(SwingConstants.CENTER);
