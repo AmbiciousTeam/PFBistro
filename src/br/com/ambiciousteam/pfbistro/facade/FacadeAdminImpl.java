@@ -1,5 +1,6 @@
 package br.com.ambiciousteam.pfbistro.facade;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import br.com.ambiciousteam.pfbistro.logic.LogicIF;
@@ -35,6 +36,12 @@ public class FacadeAdminImpl implements FacadeAdmin {
 	public List<Product> getAllProducts(String category) {
 		
 		return logic.searchAllProducts(category);
+	}
+	
+	@Override
+	public double calculateRequest(ArrayList<Product> listProductsSelected) {
+		return logic.calculate(listProductsSelected);
+		
 	}
 	
 }

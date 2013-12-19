@@ -1,6 +1,7 @@
 package br.com.ambiciousteam.pfbistro.logic;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import br.com.ambiciousteam.pfbistro.abstractFactory.FactoryIF;
@@ -57,4 +58,14 @@ public class LogicImpl implements LogicIF{
 		return dao.getProductByCategory(category);
 	}
 
+	@Override
+	public double calculate(ArrayList<Product> listProductsSelected) {
+		double sum = 0;
+		
+		for (Product p : listProductsSelected) {
+			sum+= p.getProductPrice();
+		}
+		
+		return sum;
+	}
 }

@@ -1,5 +1,6 @@
 package br.com.ambiciousteam.pfbistro.logic;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import br.com.ambiciousteam.pfbistro.model.Administrator;
@@ -14,6 +15,8 @@ public interface LogicIF {
 	public boolean registeringAdmin( String name, String password );
 
 	public List<Product> searchAllProducts(String category);
+
+	public double calculate(ArrayList<Product> listProductsSelected);
 	
 	
 }

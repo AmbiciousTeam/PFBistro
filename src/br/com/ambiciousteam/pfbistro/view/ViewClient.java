@@ -1,8 +1,10 @@
 package br.com.ambiciousteam.pfbistro.view;
 
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.DefaultListModel;
@@ -12,6 +14,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
@@ -22,6 +25,8 @@ import br.com.ambiciousteam.pfbistro.enummeration.EnumCategories;
 import br.com.ambiciousteam.pfbistro.facade.FacadeAdmin;
 import br.com.ambiciousteam.pfbistro.facade.FacadeAdminImpl;
 import br.com.ambiciousteam.pfbistro.model.Product;
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
 
 @SuppressWarnings("serial")
 public class ViewClient extends JFrame {
@@ -33,6 +38,7 @@ public class ViewClient extends JFrame {
 	private String selectedCategory;
 	private JScrollPane scrollMenuItens;
 	private JList list;
+	private ArrayList<Product> listProductsSelected;
 
 	/**
 	 * Launch the application.
@@ -55,6 +61,7 @@ public class ViewClient extends JFrame {
 	 * Create the frame.
 	 */
 	public ViewClient() {
+		listProductsSelected = new ArrayList<Product>();
 		facade = new FacadeAdminImpl();
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -137,23 +144,32 @@ public class ViewClient extends JFrame {
 		panelSelectItens.add(comboMenuSelectItem);
 
 		JPanel panelMountedMenu = new JPanel();
-		panelMountedMenu.setBounds(10, 132, 609, 202);
+		panelMountedMenu.setBackground(Color.WHITE);
+		panelMountedMenu.setBounds(10, 132, 505, 202);
 		panelMenuReg.add(panelMountedMenu);
-		panelMountedMenu.setLayout(null);
-
-		list = new JList();
 
 		scrollMenuItens = new JScrollPane();
-		scrollMenuItens.setBounds(0, 0, 609, 202);
-		// scrollMenuItens.add(list);
-		panelMountedMenu.add(scrollMenuItens);
-		scrollMenuItens.setColumnHeaderView(list);
-		scrollMenuItens.setViewportView(list);
+		GroupLayout gl_panelMountedMenu = new GroupLayout(panelMountedMenu);
+		gl_panelMountedMenu.setHorizontalGroup(
+			gl_panelMountedMenu.createParallelGroup(Alignment.LEADING)
+				.addComponent(scrollMenuItens, GroupLayout.DEFAULT_SIZE, 505, Short.MAX_VALUE)
+		);
+		gl_panelMountedMenu.setVerticalGroup(
+			gl_panelMountedMenu.createParallelGroup(Alignment.LEADING)
+				.addComponent(scrollMenuItens, GroupLayout.DEFAULT_SIZE, 202, Short.MAX_VALUE)
+		);
+		panelMountedMenu.setLayout(gl_panelMountedMenu);
 
 		JButton btnMenuInsert = new JButton("Inserir");
 		btnMenuInsert.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnMenuInsert.setBounds(528, 25, 81, 22);
 		panelSelectItens.add(btnMenuInsert);
+
+
+		list = new JList();
+		list.setBounds(12, 132, 503, 200);
+		panelMenuReg.add(list);
+
 		btnMenuInsert.addActionListener(new ActionListener() {
 
 			// auxiliary attribute to insert data (products) in the list
@@ -161,11 +177,29 @@ public class ViewClient extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				modelo.addElement(comboMenuSelectItem.getSelectedItem());
-				list.setModel(modelo);
+				
+				
+				Product selectedItem = (Product) comboMenuSelectItem.getSelectedItem();
+				if(selectedItem != null){
+				
+				listProductsSelected.add(selectedItem);
+				modelo.addElement(selectedItem);
+				list.setModel(modelo);}
 			}
 		});
 
+		JButton btnCalcular = new JButton("Calcular");
+		btnCalcular.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				double calculateRequest = facade.calculateRequest(listProductsSelected);
+				
+				JOptionPane.showMessageDialog(getContentPane(), "Valor do pedido  = "+ calculateRequest);
+			}
+			
+			
+		});
+		btnCalcular.setBounds(525, 132, 94, 33);
+		panelMenuReg.add(btnCalcular);
 	}
 
 	public String getSelectedCategory() {
