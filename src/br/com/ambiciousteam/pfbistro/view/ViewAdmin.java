@@ -48,22 +48,6 @@ public class ViewAdmin extends JFrame {
 	private JScrollPane scrollTableAdmin;
 	private String selectedCategory;
 
-	/**
-	 * Launch the application.
-	 */
-	// public static void main(String[] args) {
-	//
-	// EventQueue.invokeLater(new Runnable() {
-	// public void run() {
-	// try {
-	// ViewAdmin frame = new ViewAdmin();
-	// frame.setVisible(true);
-	// } catch (Exception e) {
-	// e.printStackTrace();
-	// }
-	// }
-	// });
-	// }
 
 	/**
 	 * Create the frame.
@@ -116,7 +100,7 @@ public class ViewAdmin extends JFrame {
 		lblMenuSelectCat.setBounds(0, 0, 180, 14);
 		panelSelectItens.add(lblMenuSelectCat);
 
-		comboMenuSelectItem = new JComboBox<>();		
+		comboMenuSelectItem = new JComboBox<>();
 		comboMenuSelectItem.setBounds(190, 25, 330, 20);
 
 		comboMenuSelectCat = new JComboBox<String>();
@@ -124,39 +108,30 @@ public class ViewAdmin extends JFrame {
 		comboMenuSelectCat.addItem(EnumCategories.DRINKS.getCategory());
 		comboMenuSelectCat.addItem(EnumCategories.SNACK.getCategory());
 		comboMenuSelectCat.addItem(EnumCategories.PIZZA.getCategory());
+		comboMenuSelectCat.addItem(EnumCategories.DESSERT.getCategory());
 		panelSelectItens.add(comboMenuSelectCat);
 		setSelectedCategory(comboMenuSelectCat.getSelectedItem().toString());
 
-//				System.out.println(comboMenuSelectCat.);
-//		comboMenuSelectCat.addMouseListener(new java.awt.event.MouseAdapter() {
-//		public void mouseClicked(java.awt.event.MouseEvent evt) {
-//		while (true) {
-//		comboMenuSelectCat.getSelectedItem().
-//		System.out.println(getSelectedCategory());
-//						}
-//					}
-//		});
+		comboMenuSelectCat.addActionListener(new ActionListener() {
 
-//		FALTA CHAMAR A CONSULTA
-				comboMenuSelectCat.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				setSelectedCategory(comboMenuSelectCat.getSelectedItem()
+						.toString());
+				List<Product> allProducts = facade
+						.getAllProducts(getSelectedCategory());
+				for (Product product : allProducts) {
+					comboMenuSelectItem.addItem(product);
+				}
 
-					@Override
-					public void actionPerformed(ActionEvent arg0) {
-						setSelectedCategory(comboMenuSelectCat.getSelectedItem().toString());
-						List<Product> allProducts = facade.getAllProducts(getSelectedCategory());				
-						for (Product product : allProducts) {
-							comboMenuSelectItem.addItem(product);
-						}
-						
-					}
-				});
+			}
+		});
 
 		JLabel lblMenuSelectItem = new JLabel("Selecione um item");
 		lblMenuSelectItem.setHorizontalAlignment(SwingConstants.CENTER);
 		lblMenuSelectItem.setFont(new Font("Tahoma", Font.BOLD, 12));
 		lblMenuSelectItem.setBounds(190, 0, 328, 14);
 		panelSelectItens.add(lblMenuSelectItem);
-
 
 		panelSelectItens.add(comboMenuSelectItem);
 
@@ -174,9 +149,6 @@ public class ViewAdmin extends JFrame {
 		scrollMenuItens.setBounds(0, 0, 609, 202);
 		panelMountedMenu.add(scrollMenuItens);
 
-		//		table = new JTable();
-		//		table.setBounds(0, 11, 609, 200);
-		//		panelMountedMenu.add(table);
 
 		JLayeredPane paneProductReg = new JLayeredPane();
 		paneProductReg.setBackground(Color.LIGHT_GRAY);
@@ -220,6 +192,7 @@ public class ViewAdmin extends JFrame {
 		comboProdCategory.addItem(EnumCategories.DRINKS.getCategory());
 		comboProdCategory.addItem(EnumCategories.SNACK.getCategory());
 		comboProdCategory.addItem(EnumCategories.PIZZA.getCategory());
+		comboProdCategory.addItem(EnumCategories.DESSERT.getCategory());
 		panelProdItens.add(comboProdCategory);
 
 		JButton btnProdSave = new JButton("Salvar");
@@ -227,12 +200,13 @@ public class ViewAdmin extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				try {
 					String name = fieldProdName.getText();
-					double price = Double.parseDouble(fieldProdPrice
-							.getText());
-					String category = comboProdCategory.getSelectedItem().toString();
+					double price = Double.parseDouble(fieldProdPrice.getText());
+					String category = comboProdCategory.getSelectedItem()
+							.toString();
 					if (facade.registeringProduct(name, price, category)) {
-						JOptionPane.showMessageDialog(getContentPane(),"Produto cadastrado com sucesso");
-						// limpando 
+						JOptionPane.showMessageDialog(getContentPane(),
+								"Produto cadastrado com sucesso");
+						// limpando
 						fieldProdName.setText("");
 						fieldProdPrice.setText("");
 						fieldProdName.requestFocus();
@@ -284,7 +258,6 @@ public class ViewAdmin extends JFrame {
 		lblAdminReg.setBounds(106, 11, 513, 45);
 		panelAdminReg.add(lblAdminReg);
 
-
 		JPanel panelAdminItens = new JPanel();
 		panelAdminItens.setLayout(null);
 		panelAdminItens.setBounds(10, 67, 609, 115);
@@ -326,9 +299,9 @@ public class ViewAdmin extends JFrame {
 					} else {
 						JOptionPane.showMessageDialog(getContentPane(),
 
-								"Administrador Não cadastrado!!!", "Erro",
+						"Administrador Não cadastrado!!!", "Erro",
 
-								JOptionPane.ERROR_MESSAGE);
+						JOptionPane.ERROR_MESSAGE);
 					}
 				} catch (Exception e2) {
 				}
@@ -352,9 +325,9 @@ public class ViewAdmin extends JFrame {
 		tableAdminData.setShowGrid(true);
 
 		scrollTableAdmin.add(tableAdminData);
-		
+
 		panelTableAdmin.add(scrollTableAdmin);
-		
+
 	}
 
 	public String getSelectedCategory() {

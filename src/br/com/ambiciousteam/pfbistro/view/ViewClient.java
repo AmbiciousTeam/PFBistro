@@ -41,23 +41,6 @@ public class ViewClient extends JFrame {
 	private ArrayList<Product> listProductsSelected;
 
 	/**
-	 * Launch the application.
-	 */
-	// public static void main(String[] args) {
-	//
-	// EventQueue.invokeLater(new Runnable() {
-	// public void run() {
-	// try {
-	// ViewAdmin frame = new ViewAdmin();
-	// frame.setVisible(true);
-	// } catch (Exception e) {
-	// e.printStackTrace();
-	// }
-	// }
-	// });
-	// }
-
-	/**
 	 * Create the frame.
 	 */
 	public ViewClient() {
@@ -117,6 +100,7 @@ public class ViewClient extends JFrame {
 		comboMenuSelectCat.addItem(EnumCategories.DRINKS.getCategory());
 		comboMenuSelectCat.addItem(EnumCategories.SNACK.getCategory());
 		comboMenuSelectCat.addItem(EnumCategories.PIZZA.getCategory());
+		comboMenuSelectCat.addItem(EnumCategories.DESSERT.getCategory());
 		panelSelectItens.add(comboMenuSelectCat);
 		setSelectedCategory(comboMenuSelectCat.getSelectedItem().toString());
 
@@ -124,10 +108,11 @@ public class ViewClient extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
+				
 				setSelectedCategory(comboMenuSelectCat.getSelectedItem()
 						.toString());
-				List<Product> allProducts = facade
-						.getAllProducts(getSelectedCategory());
+				comboMenuSelectItem.removeAllItems();			
+				List<Product> allProducts = facade.getAllProducts(getSelectedCategory());
 				for (Product product : allProducts) {
 					comboMenuSelectItem.addItem(product);
 				}
@@ -160,16 +145,14 @@ public class ViewClient extends JFrame {
 		);
 		panelMountedMenu.setLayout(gl_panelMountedMenu);
 
-		JButton btnMenuInsert = new JButton("Inserir");
-		btnMenuInsert.setFont(new Font("Tahoma", Font.BOLD, 11));
-		btnMenuInsert.setBounds(528, 25, 81, 22);
-		panelSelectItens.add(btnMenuInsert);
-
-
 		list = new JList();
 		list.setBounds(12, 132, 503, 200);
 		panelMenuReg.add(list);
 
+		JButton btnMenuInsert = new JButton("Inserir");
+		btnMenuInsert.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnMenuInsert.setBounds(528, 25, 81, 22);
+		panelSelectItens.add(btnMenuInsert);
 		btnMenuInsert.addActionListener(new ActionListener() {
 
 			// auxiliary attribute to insert data (products) in the list
