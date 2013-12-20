@@ -106,7 +106,7 @@ public class ViewClient extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				
+
 				setSelectedCategory(comboMenuSelectCat.getSelectedItem()
 						.toString());
 				comboMenuSelectItem.removeAllItems();			
@@ -137,13 +137,13 @@ public class ViewClient extends JFrame {
 
 		list = new JList<Product>();
 		list.setBounds(10, 132, 505, 202);
-		
+
 		scrollMenuItens.setViewportView(list);
 		panelMountedMenu.add(scrollMenuItens);
 		panelMountedMenu.add(scrollMenuItens);
-		
-		
-		
+
+
+
 		JButton btnMenuInsert = new JButton("Inserir");
 		btnMenuInsert.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnMenuInsert.setBounds(528, 25, 81, 22);
@@ -151,18 +151,17 @@ public class ViewClient extends JFrame {
 		btnMenuInsert.addActionListener(new ActionListener() {
 
 			// auxiliary attribute to insert data (products) in the list
-			DefaultListModel<Product> modelo = new DefaultListModel<Product>();
+			DefaultListModel<Product> model = new DefaultListModel<Product>();
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
-				
+
 				Product selectedItem = (Product) comboMenuSelectItem.getSelectedItem();
 				if(selectedItem != null){
-				
-				listProductsSelected.add(selectedItem);
-				modelo.addElement(selectedItem);
-				list.setModel(modelo);}
+					listProductsSelected.add(selectedItem);
+					model.addElement(selectedItem);
+					list.setModel(model);
+				}
 			}
 		});
 
@@ -170,7 +169,7 @@ public class ViewClient extends JFrame {
 		btnCalcular.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				double calculateRequest = facade.calculateRequest(listProductsSelected);
-				
+
 				JOptionPane.showMessageDialog(getContentPane(), "Valor do pedido  = R$ "+ calculateRequest);
 			}
 		});
