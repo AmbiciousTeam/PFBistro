@@ -16,12 +16,6 @@ public class FacadeAdminImpl implements FacadeAdmin {
 	}
 	
 	@Override
-	public boolean login(String user, String password) {
-
-		return false;
-	}
-
-	@Override
 	public boolean registeringProduct(String name, double price, String Category) {
 		return logic.createAndCadastreProduct(name, price, Category);	
 		
@@ -43,5 +37,12 @@ public class FacadeAdminImpl implements FacadeAdmin {
 		return logic.calculate(listProductsSelected);
 		
 	}
-	
+	@Override
+	public boolean login(String user, String password){
+		return logic.login(user, password);
+	}
+	@Override
+	public void verifyExistAdmin() {
+		logic.verifyExistAdministrator();
+	}
 }

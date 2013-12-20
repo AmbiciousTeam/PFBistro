@@ -9,15 +9,19 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceException;
 import javax.persistence.Query;
 
+import br.com.ambiciousteam.pfbistro.model.Administrator;
 import br.com.ambiciousteam.pfbistro.model.Product;
 
 public class DaoImpl implements DaoIF<Serializable>{
 	private EntityManager entityManager;
+	private final int MINIMUN_NUMBER_OF_USER = 1;
 	
 	public DaoImpl() {
 		EntityManagerFactory emf =  Persistence.createEntityManagerFactory("PFBistro");
 		entityManager = emf.createEntityManager();
 	}
+	
+	
 
 	@Override
 	public EntityManager getEntityManager() {
@@ -67,6 +71,13 @@ public class DaoImpl implements DaoIF<Serializable>{
 		String hql = "FROM Product WHERE productcategory = '"+category+"'";
 		Query createQuery = getEntityManager().createQuery(hql);
 			return createQuery.getResultList();
+	}
+	
+	@Override
+	public List<Administrator> getListAdminstrator(){
+		String query = "FROM Administrator";
+		Query createQuery = getEntityManager().createQuery(query);
+		return createQuery.getResultList();
 	}
 	
 }

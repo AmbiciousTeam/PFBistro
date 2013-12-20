@@ -14,17 +14,13 @@ import br.com.ambiciousteam.pfbistro.model.Product;
 public class LogicImpl implements LogicIF{
 	
 	
+	private static final int MINIMUN_NUMBER_OF_USER = 1;
 	private DaoIF<Serializable> dao;
 	private FactoryIF factory;
 	
 	public LogicImpl() {
 		factory = new FactoryImpl();
 		dao = new DaoImpl();
-	}
-	@Override
-	public boolean login(Administrator admin) {
-		// TODO Auto-generated method stub
-		return false;
 	}
 
 	@Override
@@ -67,5 +63,35 @@ public class LogicImpl implements LogicIF{
 		}
 		
 		return sum;
+	}
+	
+	@Override
+	public boolean login(String use, String password){
+		List<Administrator> listAdminstrator = dao.getListAdminstrator();
+		for (Administrator administrator : listAdminstrator) {
+			if((administrator.getAdminName().equals(use)) && administrator.getAdminPasswrd().equals(password)){
+				return true;
+			}
+		}
+		return false;
+		
+		
+	}
+	@Override
+	public void verifyExistAdministrator() {
+		createAdminDefault("master", "master");
+		
+		
+	}
+	
+	private void createAdminDefault(String name, String password) {
+		List<Administrator> listAdminstrator =  dao.getListAdminstrator();
+		if(listAdminstrator.size() < MINIMUN_NUMBER_OF_USER){
+			Administrator admin = new Administrator();
+			admin.setAdminName(name);
+			admin.setAdminPassword(password);
+			dao.create(admin);
+		}
+		
 	}
 }

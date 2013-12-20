@@ -17,5 +17,8 @@ public interface FacadeAdmin {
 	List<Product> getAllProducts(String category);
 
 	public double calculateRequest(ArrayList<Product> listProductsSelected);
+
+	public void verifyExistAdmin();
+
 	
 }

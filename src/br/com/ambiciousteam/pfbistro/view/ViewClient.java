@@ -132,23 +132,20 @@ public class ViewClient extends JFrame {
 		panelMountedMenu.setBackground(Color.WHITE);
 		panelMountedMenu.setBounds(10, 132, 505, 202);
 		panelMenuReg.add(panelMountedMenu);
+		panelMountedMenu.setLayout(null);
 
 		scrollMenuItens = new JScrollPane();
-		GroupLayout gl_panelMountedMenu = new GroupLayout(panelMountedMenu);
-		gl_panelMountedMenu.setHorizontalGroup(
-			gl_panelMountedMenu.createParallelGroup(Alignment.LEADING)
-				.addComponent(scrollMenuItens, GroupLayout.DEFAULT_SIZE, 505, Short.MAX_VALUE)
-		);
-		gl_panelMountedMenu.setVerticalGroup(
-			gl_panelMountedMenu.createParallelGroup(Alignment.LEADING)
-				.addComponent(scrollMenuItens, GroupLayout.DEFAULT_SIZE, 202, Short.MAX_VALUE)
-		);
-		panelMountedMenu.setLayout(gl_panelMountedMenu);
+		scrollMenuItens.setBounds(0, 0, 505, 202);
 
 		list = new JList();
-		list.setBounds(12, 132, 503, 200);
-		panelMenuReg.add(list);
-
+		list.setBounds(10, 132, 505, 202);
+		
+		scrollMenuItens.setViewportView(list);
+		panelMountedMenu.add(scrollMenuItens);
+		panelMountedMenu.add(scrollMenuItens);
+		
+		
+		
 		JButton btnMenuInsert = new JButton("Inserir");
 		btnMenuInsert.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnMenuInsert.setBounds(528, 25, 81, 22);

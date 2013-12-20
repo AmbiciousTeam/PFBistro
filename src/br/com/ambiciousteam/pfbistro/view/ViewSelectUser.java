@@ -14,22 +14,6 @@ import java.awt.event.ActionEvent;
 public class ViewSelectUser extends JFrame {
 
 	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					ViewSelectUser frame = new ViewSelectUser();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
 	 * Create the frame.
 	 */
 	public ViewSelectUser() {
@@ -46,8 +30,7 @@ public class ViewSelectUser extends JFrame {
 		JButton btnSelectAdmin = new JButton("Administrador");
 		btnSelectAdmin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
-				new ViewAdmin().setVisible(true);
+				new ViewLogin().setVisible(true);
 //				panelSelectUser.setVisible(false);
 				dispose();
 				

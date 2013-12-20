@@ -3,10 +3,9 @@
  */
 package br.com.ambiciousteam.pfbistro.main;
 
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
+import java.awt.EventQueue;
 
-import br.com.ambiciousteam.pfbistro.dao.Queries;
+import br.com.ambiciousteam.pfbistro.view.ViewSelectUser;
 
 /**
  * @author Eclipse
@@ -18,11 +17,16 @@ public class Main {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-//		EntityManagerFactory emf = Persistence.createEntityManagerFactory("PFBistro");
-//		emf.close();
-
-		new Queries();
-		
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					ViewSelectUser frame = new ViewSelectUser();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
 	}
 
 }

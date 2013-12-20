@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 
+import br.com.ambiciousteam.pfbistro.model.Administrator;
 import br.com.ambiciousteam.pfbistro.model.Product;
 
 @SuppressWarnings("hiding")
@@ -23,4 +24,6 @@ public interface DaoIF<Serializable> {
 	public List<Serializable> getAll(Class<Serializable> classe);
 	
 	List<Product> getProductByCategory(String category);
+
+	List<Administrator> getListAdminstrator();
 }

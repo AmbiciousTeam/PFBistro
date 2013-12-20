@@ -8,7 +8,6 @@ import br.com.ambiciousteam.pfbistro.model.Product;
 
 public interface LogicIF {
 	
-	public boolean login(Administrator admin);
 	
 	boolean createAndCadastreProduct( String name, double price, String Category );
 	
@@ -17,6 +16,10 @@ public interface LogicIF {
 	public List<Product> searchAllProducts(String category);
 
 	public double calculate(ArrayList<Product> listProductsSelected);
+
+	boolean login(String use, String password);
+
+	public void verifyExistAdministrator();
 	
 	
 }
