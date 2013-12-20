@@ -25,8 +25,6 @@ import br.com.ambiciousteam.pfbistro.enummeration.EnumCategories;
 import br.com.ambiciousteam.pfbistro.facade.FacadeAdmin;
 import br.com.ambiciousteam.pfbistro.facade.FacadeAdminImpl;
 import br.com.ambiciousteam.pfbistro.model.Product;
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
 
 @SuppressWarnings("serial")
 public class ViewClient extends JFrame {
@@ -37,7 +35,7 @@ public class ViewClient extends JFrame {
 	private JComboBox<Product> comboMenuSelectItem;
 	private String selectedCategory;
 	private JScrollPane scrollMenuItens;
-	private JList list;
+	private JList<Product> list;
 	private ArrayList<Product> listProductsSelected;
 
 	/**
@@ -137,7 +135,7 @@ public class ViewClient extends JFrame {
 		scrollMenuItens = new JScrollPane();
 		scrollMenuItens.setBounds(0, 0, 505, 202);
 
-		list = new JList();
+		list = new JList<Product>();
 		list.setBounds(10, 132, 505, 202);
 		
 		scrollMenuItens.setViewportView(list);
@@ -153,7 +151,7 @@ public class ViewClient extends JFrame {
 		btnMenuInsert.addActionListener(new ActionListener() {
 
 			// auxiliary attribute to insert data (products) in the list
-			DefaultListModel modelo = new DefaultListModel();
+			DefaultListModel<Product> modelo = new DefaultListModel<Product>();
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -173,10 +171,8 @@ public class ViewClient extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				double calculateRequest = facade.calculateRequest(listProductsSelected);
 				
-				JOptionPane.showMessageDialog(getContentPane(), "Valor do pedido  = "+ calculateRequest);
+				JOptionPane.showMessageDialog(getContentPane(), "Valor do pedido  = R$ "+ calculateRequest);
 			}
-			
-			
 		});
 		btnCalcular.setBounds(525, 132, 94, 33);
 		panelMenuReg.add(btnCalcular);

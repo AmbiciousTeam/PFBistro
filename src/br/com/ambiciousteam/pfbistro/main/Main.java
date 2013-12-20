@@ -9,7 +9,6 @@ import br.com.ambiciousteam.pfbistro.view.ViewSelectUser;
 
 /**
  * @author Eclipse
- *
  */
 public class Main {
 
@@ -28,5 +27,4 @@ public class Main {
 			}
 		});
 	}
-
 }
