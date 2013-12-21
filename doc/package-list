@@ -1,0 +1,12 @@
+br.com.ambiciousteam.pfbistro.ActionListeners
+br.com.ambiciousteam.pfbistro.abstractFactory
+br.com.ambiciousteam.pfbistro.dao
+br.com.ambiciousteam.pfbistro.enummeration
+br.com.ambiciousteam.pfbistro.exceptions
+br.com.ambiciousteam.pfbistro.facade
+br.com.ambiciousteam.pfbistro.logic
+br.com.ambiciousteam.pfbistro.main
+br.com.ambiciousteam.pfbistro.model
+br.com.ambiciousteam.pfbistro.tests
+br.com.ambiciousteam.pfbistro.view
+br.com.ambiciousteam.pfbistro.xml

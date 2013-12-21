@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project default="javadoc">
+    <target name="javadoc">
+        <javadoc access="private" author="true" classpath="lib/postgresql-9.3-1100.jdbc4.jar;lib/hibernate-commons-annotations-4.0.2.Final.jar;lib/xstream-1.4.6.jar;lib/antlr-2.7.7.jar;lib/javassist-3.18.1-GA.jar;lib/hibernate-entitymanager-4.2.7.SP1.jar;lib/jboss-transaction-api_1.1_spec-1.0.1.Final.jar;lib/jboss-logging-3.1.0.GA.jar;lib/hibernate-core-4.2.7.SP1.jar;C:\eclipse\plugins\org.hamcrest.core_1.3.0.v201303031735.jar;lib/hibernate-jpa-2.0-api-1.0.1.Final.jar;lib/dom4j-1.6.1.jar;C:\eclipse\plugins\org.junit_4.11.0.v201303080030\junit.jar" destdir="doc" doctitle="PFBistro" nodeprecated="false" nodeprecatedlist="false" noindex="false" nonavbar="false" notree="false" packagenames="br.com.ambiciousteam.pfbistro.main,br.com.ambiciousteam.pfbistro.exceptions,br.com.ambiciousteam.pfbistro.abstractFactory,br.com.ambiciousteam.pfbistro.ActionListeners,br.com.ambiciousteam.pfbistro.facade,br.com.ambiciousteam.pfbistro.model,br.com.ambiciousteam.pfbistro.dao,br.com.ambiciousteam.pfbistro.tests,br.com.ambiciousteam.pfbistro.view,br.com.ambiciousteam.pfbistro.logic,br.com.ambiciousteam.pfbistro.xml,br.com.ambiciousteam.pfbistro.enummeration" source="1.7" sourcepath="src" splitindex="true" use="true" version="true"/>
+    </target>
+</project>

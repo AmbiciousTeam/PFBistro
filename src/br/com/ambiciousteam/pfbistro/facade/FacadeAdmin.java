@@ -3,6 +3,7 @@ package br.com.ambiciousteam.pfbistro.facade;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.com.ambiciousteam.pfbistro.exceptions.MsgErrorException;
 import br.com.ambiciousteam.pfbistro.model.Product;
 
 
@@ -18,7 +19,7 @@ public interface FacadeAdmin {
 
 	public double calculateRequest(ArrayList<Product> listProductsSelected);
 
-	public void verifyExistAdmin();
+	public void verifyExistAdmin() throws MsgErrorException;
 
 	
 }

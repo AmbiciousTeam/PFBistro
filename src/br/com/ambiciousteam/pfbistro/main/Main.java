@@ -5,6 +5,7 @@ package br.com.ambiciousteam.pfbistro.main;
 
 import java.awt.EventQueue;
 
+import br.com.ambiciousteam.pfbistro.view.ViewClient;
 import br.com.ambiciousteam.pfbistro.view.ViewSelectUser;
 
 /**

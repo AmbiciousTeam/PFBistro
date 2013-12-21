@@ -3,6 +3,7 @@ package br.com.ambiciousteam.pfbistro.logic;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.com.ambiciousteam.pfbistro.exceptions.MsgErrorException;
 import br.com.ambiciousteam.pfbistro.model.Administrator;
 import br.com.ambiciousteam.pfbistro.model.Product;
 
@@ -19,7 +20,7 @@ public interface LogicIF {
 
 	boolean login(String use, String password);
 
-	public void verifyExistAdministrator();
+	public void verifyExistAdministrator() throws MsgErrorException;
 	
 	
 }

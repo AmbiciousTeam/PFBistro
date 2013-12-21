@@ -1,16 +1,18 @@
 package br.com.ambiciousteam.pfbistro.view;
 
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.SwingConstants;
 import java.awt.Font;
-import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.SwingConstants;
+
+import br.com.ambiciousteam.pfbistro.exceptions.MsgErrorException;
+
+@SuppressWarnings("serial")
 public class ViewSelectUser extends JFrame {
 
 	/**
@@ -30,11 +32,12 @@ public class ViewSelectUser extends JFrame {
 		JButton btnSelectAdmin = new JButton("Administrador");
 		btnSelectAdmin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				new ViewLogin().setVisible(true);
-//				panelSelectUser.setVisible(false);
+				try {
+					new ViewLogin().setVisible(true);
+				} catch (MsgErrorException e) {
+					e.printStackTrace();
+				}
 				dispose();
-				
-				
 			}
 		});
 		btnSelectAdmin.setFont(new Font("Tahoma", Font.PLAIN, 14));

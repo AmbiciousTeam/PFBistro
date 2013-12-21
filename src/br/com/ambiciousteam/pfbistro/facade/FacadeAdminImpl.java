@@ -3,6 +3,7 @@ package br.com.ambiciousteam.pfbistro.facade;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.com.ambiciousteam.pfbistro.exceptions.MsgErrorException;
 import br.com.ambiciousteam.pfbistro.logic.LogicIF;
 import br.com.ambiciousteam.pfbistro.logic.LogicImpl;
 import br.com.ambiciousteam.pfbistro.model.Product;
@@ -42,7 +43,7 @@ public class FacadeAdminImpl implements FacadeAdmin {
 		return logic.login(user, password);
 	}
 	@Override
-	public void verifyExistAdmin() {
+	public void verifyExistAdmin() throws MsgErrorException {
 		logic.verifyExistAdministrator();
 	}
 }

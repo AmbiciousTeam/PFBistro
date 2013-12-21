@@ -214,7 +214,7 @@ public class ViewAdmin extends JFrame {
 					for (int i = 0; i < arrayPassword.length; i++) {
 						password += arrayPassword[i];
 					}
-					if (facade.registeringAdmin(name, password)) {
+					if (facade.registeringAdmin(name, password)  && !name.equals("") && !password.equals("")) {
 						JOptionPane.showMessageDialog(getContentPane(),
 								"Administrador cadastrado com sucesso");
 						// limpando

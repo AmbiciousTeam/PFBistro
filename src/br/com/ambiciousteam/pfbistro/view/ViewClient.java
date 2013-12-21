@@ -37,6 +37,7 @@ public class ViewClient extends JFrame {
 	private JScrollPane scrollMenuItens;
 	private JList<Product> list;
 	private ArrayList<Product> listProductsSelected;
+	private DefaultListModel<Product> model;
 
 	/**
 	 * Create the frame.
@@ -142,16 +143,14 @@ public class ViewClient extends JFrame {
 		panelMountedMenu.add(scrollMenuItens);
 		panelMountedMenu.add(scrollMenuItens);
 
-
-
 		JButton btnMenuInsert = new JButton("Inserir");
 		btnMenuInsert.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnMenuInsert.setBounds(528, 25, 81, 22);
 		panelSelectItens.add(btnMenuInsert);
+		model = new DefaultListModel<Product>();
 		btnMenuInsert.addActionListener(new ActionListener() {
 
 			// auxiliary attribute to insert data (products) in the list
-			DefaultListModel<Product> model = new DefaultListModel<Product>();
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -161,10 +160,11 @@ public class ViewClient extends JFrame {
 					listProductsSelected.add(selectedItem);
 					model.addElement(selectedItem);
 					list.setModel(model);
+					System.out.println(model);
 				}
 			}
 		});
-
+		
 		JButton btnCalcular = new JButton("Calcular");
 		btnCalcular.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
