@@ -30,6 +30,7 @@ public class ViewSelectUser extends JFrame {
 		panelSelectUser.setLayout(null);
 		
 		JButton btnSelectAdmin = new JButton("Administrador");
+		getRootPane().setDefaultButton(btnSelectAdmin);
 		btnSelectAdmin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				try {

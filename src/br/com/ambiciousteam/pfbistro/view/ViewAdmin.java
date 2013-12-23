@@ -28,6 +28,7 @@ import br.com.ambiciousteam.pfbistro.enummeration.EnumCategories;
 import br.com.ambiciousteam.pfbistro.facade.FacadeAdmin;
 import br.com.ambiciousteam.pfbistro.facade.FacadeAdminImpl;
 import br.com.ambiciousteam.pfbistro.model.Product;
+import javax.swing.ImageIcon;
 
 @SuppressWarnings("serial")
 public class ViewAdmin extends JFrame {

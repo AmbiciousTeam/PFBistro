@@ -23,7 +23,7 @@ public class FacadeAdminImpl implements FacadeAdmin {
 	}
 
 	@Override
-	public boolean registeringAdmin(String name, String password) {
+	public boolean registeringAdmin(String name, String password) throws MsgErrorException {
 		return logic.registeringAdmin(name, password);	
 	}
 	

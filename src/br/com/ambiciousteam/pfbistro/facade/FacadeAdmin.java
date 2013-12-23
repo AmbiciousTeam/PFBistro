@@ -13,13 +13,12 @@ public interface FacadeAdmin {
 	
 	public boolean registeringProduct( String name, double price, String Category );
 
-	public boolean registeringAdmin( String name, String password );
+	public boolean registeringAdmin( String name, String password ) throws MsgErrorException;
 
-	List<Product> getAllProducts(String category);
+	public List<Product> getAllProducts(String category);
 
 	public double calculateRequest(ArrayList<Product> listProductsSelected);
 
 	public void verifyExistAdmin() throws MsgErrorException;
 
-	
 }

@@ -1,6 +1,7 @@
 package br.com.ambiciousteam.pfbistro.dao;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -25,5 +26,9 @@ public interface DaoIF<Serializable> {
 	
 	List<Product> getProductByCategory(String category);
 
-	List<Administrator> getListAdminstrator();
+	List<Administrator> getListAdministrator();
+
+	public ArrayList<String> getProductsNames();
+
+	public ArrayList<String> getAdminsNames();
 }
