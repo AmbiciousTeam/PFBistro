@@ -7,41 +7,35 @@ import org.junit.Test;
 
 import br.com.ambiciousteam.pfbistro.exceptions.MsgErrorException;
 import br.com.ambiciousteam.pfbistro.logic.LogicImpl;
-import br.com.ambiciousteam.pfbistro.model.Administrator;
 
 public class LogicImplTest {
 
 	LogicImpl logic = new LogicImpl();
-	Administrator admin = new Administrator();
 
 	@Before
 	public void setUp() throws Exception {
 
 	}
 
-	// @Test
-
+	@Test
 	/**
 	 * This test is for implementation LOGIN method, first it is returning a
 	 * FALSE, then the implementation must obtain a return TRUE.
 	 */
+	public void testLoginWorks() {
+		assertEquals(true, logic.login("Wilde", "123"));
+	}
 
-	// public void testLoginWorks() {
-	// assertEquals(true, logic.login(admin));
-	// }
-
-	// @Test
-	//
-	// /**
-	// *This test is for implementation LOGIN method,
-	// * first it is returning a TRUE, then the implementation must obtain a
-	// return FALSE,
-	// * except when administrator and password are wrong
-	// */
-	//
-	// public void testLoginDontWorks() {
-	// assertEquals(false, logic.login(admin));
-	// }
+	@Test
+	/**
+	 *This test is for implementation LOGIN method,
+	 * first it is returning a TRUE, then the implementation must obtain a
+	return FALSE,
+	 * except when administrator and password are wrong
+	 */
+	public void testLoginDontWorks() {
+		assertEquals(false, logic.login("metallica", "dragonForce"));
+	}
 
 	@Test
 	/**
@@ -103,7 +97,7 @@ public class LogicImplTest {
 	public void testRegisteringAdminWorks() throws MsgErrorException {
 		// Create array for verifying if registeringAdmin work with two
 		// administrators and passwords named equals;
-		String[] array = { "Wilde", "123" };
+		String[] array = { "LedZepllin", "U2" };
 		assertEquals(true, logic.registeringAdmin(array[0], array[1]));
 
 	}

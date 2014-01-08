@@ -1,4 +1,4 @@
-package br.com.ambiciousteam.pfbistro.view;
+package br.com.ambiciousteam.pfbistro.view.swing;
 
 import java.awt.Color;
 import java.awt.Component;
@@ -167,6 +167,16 @@ public class ViewAdmin extends JFrame {
 		panelProdReg.add(lblCadastroDeProdutos);
 		lblCadastroDeProdutos.setHorizontalAlignment(SwingConstants.CENTER);
 		lblCadastroDeProdutos.setFont(new Font("Tahoma", Font.BOLD, 18));
+		
+		JButton btnPri = new JButton("Voltar");
+		btnPri.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				new ViewSelectUser().setVisible(true);
+				dispose();
+			}
+		});
+		btnPri.setBounds(539, 0, 90, 23);
+		panelProdReg.add(btnPri);
 
 		JLayeredPane paneAdminReg = new JLayeredPane();
 		tabbedAdminFullReg.addTab("Administrador", null, paneAdminReg, null);
@@ -252,6 +262,16 @@ public class ViewAdmin extends JFrame {
 		scrollTableAdmin.add(tableAdminData);
 
 		panelTableAdmin.add(scrollTableAdmin);
+		
+		JButton button = new JButton("Voltar");
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				new ViewSelectUser().setVisible(true);
+				dispose();
+			}
+		});
+		button.setBounds(539, 0, 90, 23);
+		panelAdminReg.add(button);
 
 	}
 

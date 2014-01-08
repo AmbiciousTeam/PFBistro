@@ -135,6 +135,5 @@ public class LogicImpl implements LogicIF {
 			dao.create(admin);
 		} else {
 		}
-
 	}
 }

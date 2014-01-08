@@ -6,7 +6,7 @@ package br.com.ambiciousteam.pfbistro.main;
 import java.awt.EventQueue;
 
 import br.com.ambiciousteam.pfbistro.dao.DaoImpl;
-import br.com.ambiciousteam.pfbistro.view.ViewSelectUser;
+import br.com.ambiciousteam.pfbistro.view.swing.ViewSelectUser;
 
 /**
  * @author Eclipse

@@ -8,7 +8,6 @@ import br.com.ambiciousteam.pfbistro.model.Product;
 
 public interface LogicIF {
 	
-	
 	boolean createAndCadastreProduct( String name, double price, String Category );
 	
 	public boolean registeringAdmin( String name, String password ) throws MsgErrorException;
@@ -20,6 +19,5 @@ public interface LogicIF {
 	boolean login(String use, String password);
 
 	public void verifyExistAdministrator() throws MsgErrorException;
-	
 	
 }

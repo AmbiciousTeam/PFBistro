@@ -1,4 +1,4 @@
-package br.com.ambiciousteam.pfbistro.view;
+package br.com.ambiciousteam.pfbistro.view.swing;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -76,7 +76,7 @@ public class ViewClient extends JFrame {
 		JLabel lblCadastroDeCardpio = new JLabel("Card\u00E1pio");
 		lblCadastroDeCardpio.setHorizontalAlignment(SwingConstants.CENTER);
 		lblCadastroDeCardpio.setFont(new Font("Tahoma", Font.BOLD, 18));
-		lblCadastroDeCardpio.setBounds(106, 11, 513, 45);
+		lblCadastroDeCardpio.setBounds(10, 11, 609, 45);
 		panelMenuReg.add(lblCadastroDeCardpio);
 
 		JPanel panelSelectItens = new JPanel();
@@ -92,10 +92,10 @@ public class ViewClient extends JFrame {
 		panelSelectItens.add(lblMenuSelectCat);
 
 		comboMenuSelectItem = new JComboBox<>();
-		comboMenuSelectItem.setBounds(190, 25, 330, 20);
+		comboMenuSelectItem.setBounds(200, 25, 409, 20);
 
 		comboMenuSelectCat = new JComboBox<String>();
-		comboMenuSelectCat.setBounds(0, 25, 180, 20);
+		comboMenuSelectCat.setBounds(0, 25, 190, 20);
 		comboMenuSelectCat.addItem(EnumCategories.DRINKS.getCategory());
 		comboMenuSelectCat.addItem(EnumCategories.SNACK.getCategory());
 		comboMenuSelectCat.addItem(EnumCategories.PIZZA.getCategory());
@@ -142,28 +142,7 @@ public class ViewClient extends JFrame {
 		scrollMenuItens.setViewportView(list);
 		panelMountedMenu.add(scrollMenuItens);
 		panelMountedMenu.add(scrollMenuItens);
-
-		JButton btnMenuInsert = new JButton("Inserir");
-		btnMenuInsert.setFont(new Font("Tahoma", Font.BOLD, 11));
-		btnMenuInsert.setBounds(528, 25, 81, 22);
-		panelSelectItens.add(btnMenuInsert);
 		model = new DefaultListModel<Product>();
-		btnMenuInsert.addActionListener(new ActionListener() {
-
-			// auxiliary attribute to insert data (products) in the list
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-
-				Product selectedItem = (Product) comboMenuSelectItem.getSelectedItem();
-				if(selectedItem != null){
-					listProductsSelected.add(selectedItem);
-					model.addElement(selectedItem);
-					list.setModel(model);
-					System.out.println(model);
-				}
-			}
-		});
 		
 		JButton btnCalcular = new JButton("Calcular");
 		btnCalcular.addActionListener(new ActionListener() {
@@ -173,8 +152,39 @@ public class ViewClient extends JFrame {
 				JOptionPane.showMessageDialog(getContentPane(), "Valor do pedido  = R$ "+ calculateRequest);
 			}
 		});
-		btnCalcular.setBounds(525, 132, 94, 33);
+		btnCalcular.setBounds(525, 171, 94, 33);
 		panelMenuReg.add(btnCalcular);
+		
+				JButton btnMenuInsert = new JButton("Inserir");
+				btnMenuInsert.setBounds(525, 132, 94, 33);
+				panelMenuReg.add(btnMenuInsert);
+				btnMenuInsert.setFont(new Font("Tahoma", Font.BOLD, 12));
+				
+				JButton btnVoltar = new JButton("Voltar");
+				btnVoltar.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent arg0) {
+						new ViewSelectUser().setVisible(true);
+						dispose();
+					}
+				});
+				btnVoltar.setBounds(530, 301, 89, 33);
+				panelMenuReg.add(btnVoltar);
+				btnMenuInsert.addActionListener(new ActionListener() {
+
+					// auxiliary attribute to insert data (products) in the list
+
+					@Override
+					public void actionPerformed(ActionEvent e) {
+
+						Product selectedItem = (Product) comboMenuSelectItem.getSelectedItem();
+						if(selectedItem != null){
+							listProductsSelected.add(selectedItem);
+							model.addElement(selectedItem);
+							list.setModel(model);
+							System.out.println(model);
+						}
+					}
+				});
 	}
 
 	public String getSelectedCategory() {

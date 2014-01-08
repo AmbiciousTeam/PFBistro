@@ -1,4 +1,4 @@
-package br.com.ambiciousteam.pfbistro.view;
+package br.com.ambiciousteam.pfbistro.view.swing;
 
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -22,6 +22,7 @@ public class ViewSelectUser extends JFrame {
 		setBounds(100, 100, 341, 221);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
+		setResizable(false);
 		getContentPane().setLayout(null);
 		
 		final JPanel panelSelectUser = new JPanel();

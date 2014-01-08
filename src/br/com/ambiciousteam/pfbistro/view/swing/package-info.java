@@ -6,4 +6,4 @@
  * @author Eclipse
  *
  */
-package br.com.ambiciousteam.pfbistro.view;
+package br.com.ambiciousteam.pfbistro.view.swing;
