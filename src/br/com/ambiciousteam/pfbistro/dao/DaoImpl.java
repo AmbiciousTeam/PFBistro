@@ -14,6 +14,7 @@ import br.com.ambiciousteam.pfbistro.model.Product;
 
 public class DaoImpl implements DaoIF<Serializable> {
 	private EntityManager entityManager;
+	@SuppressWarnings("unused")
 	private final int MINIMUN_NUMBER_OF_USER = 1;
 
 	public DaoImpl() {
@@ -64,6 +65,7 @@ public class DaoImpl implements DaoIF<Serializable> {
 		return null;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Product> getProductByCategory(String category) {
 		String hql = "FROM Product WHERE productcategory = '" + category + "'";
@@ -76,6 +78,7 @@ public class DaoImpl implements DaoIF<Serializable> {
 	 * 
 	 * @return
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public ArrayList<String> getProductsNames() {
 		ArrayList<String> productName = new ArrayList<>();
@@ -93,6 +96,7 @@ public class DaoImpl implements DaoIF<Serializable> {
 	 * 
 	 * @return
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public ArrayList<String> getAdminsNames() {
 		ArrayList<String> adminName = new ArrayList<>();
@@ -105,6 +109,7 @@ public class DaoImpl implements DaoIF<Serializable> {
 		return adminName;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Administrator> getListAdministrator() {
 		String query = "FROM Administrator";

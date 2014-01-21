@@ -18,9 +18,7 @@ import br.com.ambiciousteam.pfbistro.exceptions.MsgErrorException;
 import br.com.ambiciousteam.pfbistro.facade.FacadeAdmin;
 import br.com.ambiciousteam.pfbistro.facade.FacadeAdminImpl;
 
-import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
-
+@SuppressWarnings("serial")
 public class ViewLogin extends JFrame {
 	private JTextField textFieldLoginUser;
 	private JPasswordField passwordFieldLogin;
@@ -28,14 +26,15 @@ public class ViewLogin extends JFrame {
 
 	/**
 	 * Create the frame.
-	 * @throws MsgErrorException 
+	 * 
+	 * @throws MsgErrorException
 	 */
 	public ViewLogin() throws MsgErrorException {
 		setTitle("Pais e Filhos Bistr\u00F4 Login");
 		facade = new FacadeAdminImpl();
 		facade.verifyExistAdmin();
 
-		setBounds(100, 100, 337, 216);
+		setBounds(100, 100, 337, 222);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setResizable(false);
 		setLocationRelativeTo(null);
@@ -71,45 +70,50 @@ public class ViewLogin extends JFrame {
 		lblLogin.setHorizontalAlignment(SwingConstants.CENTER);
 		lblLogin.setBounds(16, 11, 289, 38);
 		getContentPane().add(lblLogin);
-		
-				JButton btnLogin = new JButton("Login");
-				btnLogin.setBounds(61, 141, 95, 23);
-				getContentPane().add(btnLogin);
-				
-				JButton btnCancel = new JButton("Cancelar");
-				btnCancel.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent arg0) {
-						new ViewSelectUser().setVisible(true);
-						dispose();
-					}
-				});
-				btnCancel.setBounds(171, 141, 95, 23);
-				getContentPane().add(btnCancel);
-				btnLogin.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent arg0) {
 
-						char[] arrayPassword = passwordFieldLogin.getPassword();
-						String password = "";
-						for (int i = 0; i < arrayPassword.length; i++) {
-							password += arrayPassword[i];
-						}
-						String user = textFieldLoginUser.getText();
-						if (facade.login(user, password)) {
-							new ViewAdmin(facade).setVisible(true);
-							dispose();
-						} else {
-							JOptionPane.showMessageDialog(getContentPane(),
-									"Login Inválido! Tente novamente.",
-									"Erro de Login", JOptionPane.ERROR_MESSAGE);
-							try {
-								new ViewLogin();
-							} catch (MsgErrorException e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							}
-						}
+		JButton btnLogin = new JButton("Login");
+		btnLogin.setBounds(61, 141, 95, 23);
+		getContentPane().add(btnLogin);
+
+		JButton btnCancel = new JButton("Cancelar");
+		btnCancel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				new ViewSelectUser().setVisible(true);
+				dispose();
+			}
+		});
+		btnCancel.setBounds(171, 141, 95, 23);
+		getContentPane().add(btnCancel);
+
+		btnLogin.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+
+				char[] arrayPassword = passwordFieldLogin.getPassword();
+				String password = "";
+				// Verifica no banco as senhas existentes
+				for (int i = 0; i < arrayPassword.length; i++) {
+					password += arrayPassword[i];
+				}
+				String user = textFieldLoginUser.getText();// Captura o conteudo
+															// da senha digitado
+															// no Text Field.
+				if (facade.login(user, password)) { // Verifica se os dados
+													// digitados batem com os
+													// armazenados no banco.
+					new ViewAdmin(facade).setVisible(true);
+					dispose();
+				} else {
+					JOptionPane.showMessageDialog(getContentPane(),
+							"Login Inválido! Tente novamente.",
+							"Erro de Login", JOptionPane.ERROR_MESSAGE);
+					try {
+						new ViewLogin();
+					} catch (MsgErrorException e) {
+						e.printStackTrace();
 					}
-				});
+				}
+			}
+		});
 
 	}
 }

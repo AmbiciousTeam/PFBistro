@@ -20,20 +20,20 @@ public interface DaoIF<Serializable> {
 	public EntityManager getEntityManager();
 	
 	/**
-	 * persiste uma entidade no banco.
+	 * Persiste uma entidade no banco.
 	 * @param entity
 	 * @return
 	 */
 	public Serializable create(Serializable entity);
 	
 	/**
-	 * remove uma entidade do banco
+	 * Remove uma entidade do banco
 	 * @param entity
 	 */
 	public void remove(Serializable entity);
 
 	/**
-	 * atualiza  a entidade no BD
+	 * Atualiza  a entidade no BD
 	 * @param entity
 	 */
 	public void update(Serializable entity);
@@ -47,21 +47,21 @@ public interface DaoIF<Serializable> {
 	public Serializable getById(Class<Serializable> classe, long pk);
 	
 	/**
-	 * busca todas as tuplas de uma classe que estão no BD
+	 * Busca todas as tuplas de uma classe que estão no BD
 	 * @param classe
 	 * @return
 	 */
 	public List<Serializable> getAll(Class<Serializable> classe);
 	
 	/**
-	 * retorna todos os prdutos de uma determinada categoria
+	 * Retorna todos os prdutos de uma determinada categoria
 	 * @param category
 	 * @return
 	 */
 	List<Product> getProductByCategory(String category);
 
 	/**
-	 * retorna todos os administradores
+	 * Retorna todos os administradores
 	 * @return
 	 */
 	List<Administrator> getListAdministrator();

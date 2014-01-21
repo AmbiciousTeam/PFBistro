@@ -5,7 +5,6 @@ import java.awt.Component;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -26,27 +25,18 @@ import javax.swing.border.LineBorder;
 
 import br.com.ambiciousteam.pfbistro.enummeration.EnumCategories;
 import br.com.ambiciousteam.pfbistro.facade.FacadeAdmin;
-import br.com.ambiciousteam.pfbistro.facade.FacadeAdminImpl;
-import br.com.ambiciousteam.pfbistro.model.Product;
-import javax.swing.ImageIcon;
 
 @SuppressWarnings("serial")
 public class ViewAdmin extends JFrame {
 
-	private JPanel contentPane;
-	private JPanel panelTableProd;
+	private JPanel contentPane, panelTableProd;
 	private FacadeAdmin facade;
-	private JTable tableAdminData;
-	private JTextField fieldProdName;
-	private JTextField fieldProdPrice;
-	private JTextField fieldAdminName;
+	private JTable tableAdminData, tableProductData;
+	private JTextField fieldProdName, fieldProdPrice, fieldAdminName;
 	private JPasswordField fieldAdminPassword;
 	private JComboBox<String> comboProdCategory;
-	private JTable tableProductData;
-	private JScrollPane scrollTableProduct;
-	private JScrollPane scrollTableAdmin;
+	private JScrollPane scrollTableProduct, scrollTableAdmin;
 	private String selectedCategory;
-
 
 	/**
 	 * Create the frame.
@@ -54,15 +44,7 @@ public class ViewAdmin extends JFrame {
 	public ViewAdmin(FacadeAdmin f) {
 		this.facade = f;
 
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 640, 400);
-		getContentPane().setLayout(null);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		contentPane.setLayout(null);
-		setContentPane(contentPane);
-		setLocationRelativeTo(null);
-		setResizable(false);
+		screenProperties();
 
 		JPanel panelTabbedFullReg = new JPanel();
 		panelTabbedFullReg.setBounds(0, 0, 634, 372);
@@ -72,7 +54,6 @@ public class ViewAdmin extends JFrame {
 		JTabbedPane tabbedAdminFullReg = new JTabbedPane(JTabbedPane.TOP);
 		tabbedAdminFullReg.setBounds(0, 0, 634, 373);
 		panelTabbedFullReg.add(tabbedAdminFullReg);
-
 
 		JLayeredPane paneProductReg = new JLayeredPane();
 		paneProductReg.setBackground(Color.LIGHT_GRAY);
@@ -123,14 +104,17 @@ public class ViewAdmin extends JFrame {
 		btnProdSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				try {
+					// Converte as informacoes para caixa alta.
 					String name = fieldProdName.getText().toUpperCase();
-					
+
 					double price = Double.parseDouble(fieldProdPrice.getText());
-					String category = comboProdCategory.getSelectedItem().toString();
-					if (facade.registeringProduct(name , price, category)) {
+					String category = comboProdCategory.getSelectedItem()
+							.toString();
+					if (facade.registeringProduct(name, price, category)) {
 						JOptionPane.showMessageDialog(getContentPane(),
 								"Produto cadastrado com sucesso");
-						// limpando
+						// Limpa os campos de texto apos a insercao das
+						// informacoes do produto
 						fieldProdName.setText("");
 						fieldProdPrice.setText("");
 						fieldProdName.requestFocus();
@@ -167,7 +151,7 @@ public class ViewAdmin extends JFrame {
 		panelProdReg.add(lblCadastroDeProdutos);
 		lblCadastroDeProdutos.setHorizontalAlignment(SwingConstants.CENTER);
 		lblCadastroDeProdutos.setFont(new Font("Tahoma", Font.BOLD, 18));
-		
+
 		JButton btnPri = new JButton("Voltar");
 		btnPri.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -219,16 +203,21 @@ public class ViewAdmin extends JFrame {
 		btnAdminSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
+					// Captura login e senha digitados pelo usuario.
 					String name = fieldAdminName.getText();
 					char[] arrayPassword = fieldAdminPassword.getPassword();
 					String password = "";
 					for (int i = 0; i < arrayPassword.length; i++) {
 						password += arrayPassword[i];
 					}
-					if (facade.registeringAdmin(name, password)  && !name.equals("") && !password.equals("")) {
+					// Verifica se os campos estao vazios e em caso negativo,
+					// salva os valores no banco
+					if (facade.registeringAdmin(name, password)
+							&& !name.equals("") && !password.equals("")) {
 						JOptionPane.showMessageDialog(getContentPane(),
 								"Administrador cadastrado com sucesso");
-						// limpando
+						// Limpa os campos de usuario e senha apos a insercao no
+						// banco.
 						fieldAdminName.setText("");
 						fieldAdminPassword.setText("");
 					} else {
@@ -262,7 +251,8 @@ public class ViewAdmin extends JFrame {
 		scrollTableAdmin.add(tableAdminData);
 
 		panelTableAdmin.add(scrollTableAdmin);
-		
+
+		// Acao do botao voltar que retorna para a tela inicial.
 		JButton button = new JButton("Voltar");
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -273,6 +263,18 @@ public class ViewAdmin extends JFrame {
 		button.setBounds(539, 0, 90, 23);
 		panelAdminReg.add(button);
 
+	}
+
+	private void screenProperties() {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 640, 400);
+		getContentPane().setLayout(null);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		contentPane.setLayout(null);
+		setContentPane(contentPane);
+		setLocationRelativeTo(null);
+		setResizable(false);
 	}
 
 	public String getSelectedCategory() {

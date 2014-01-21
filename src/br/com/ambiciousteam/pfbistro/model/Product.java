@@ -11,8 +11,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.thoughtworks.xstream.annotations.XStreamAlias;
+
 @SuppressWarnings("serial")
 @Entity
+@XStreamAlias("Product")
 @Table (name = "Product")
 public class Product implements Serializable{
 
@@ -76,7 +79,6 @@ public class Product implements Serializable{
 	
 	@Override
 	public String toString() {
-		// TODO Auto-generated method stub
 		return getProductName()+" - R$ "+getProductPrice();
 	}
 	

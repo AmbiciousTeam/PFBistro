@@ -29,6 +29,7 @@ import br.com.ambiciousteam.pfbistro.model.Product;
 @SuppressWarnings("serial")
 public class ViewClient extends JFrame {
 
+	protected static final String PATH = "pfbistro//xml//Menu";
 	private JPanel contentPane;
 	private FacadeAdmin facade;
 	private JComboBox<String> comboMenuSelectCat;
@@ -38,6 +39,7 @@ public class ViewClient extends JFrame {
 	private JList<Product> list;
 	private ArrayList<Product> listProductsSelected;
 	private DefaultListModel<Product> model;
+	ArrayList<Product> products;
 
 	/**
 	 * Create the frame.
@@ -107,15 +109,15 @@ public class ViewClient extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-
+				// Captura os dados do banco e retorna para um combobox
 				setSelectedCategory(comboMenuSelectCat.getSelectedItem()
 						.toString());
-				comboMenuSelectItem.removeAllItems();			
-				List<Product> allProducts = facade.getAllProducts(getSelectedCategory());
+				comboMenuSelectItem.removeAllItems();
+				List<Product> allProducts = facade
+						.getAllProducts(getSelectedCategory());
 				for (Product product : allProducts) {
 					comboMenuSelectItem.addItem(product);
 				}
-
 			}
 		});
 
@@ -143,48 +145,52 @@ public class ViewClient extends JFrame {
 		panelMountedMenu.add(scrollMenuItens);
 		panelMountedMenu.add(scrollMenuItens);
 		model = new DefaultListModel<Product>();
-		
+
+		// Calcula o resultado dos produtos selecionados
 		JButton btnCalcular = new JButton("Calcular");
 		btnCalcular.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				double calculateRequest = facade.calculateRequest(listProductsSelected);
+				double calculateRequest = facade
+						.calculateRequest(listProductsSelected);
 
-				JOptionPane.showMessageDialog(getContentPane(), "Valor do pedido  = R$ "+ calculateRequest);
+				JOptionPane.showMessageDialog(getContentPane(),
+						"Valor do pedido  = R$ " + calculateRequest);
 			}
 		});
 		btnCalcular.setBounds(525, 171, 94, 33);
 		panelMenuReg.add(btnCalcular);
-		
-				JButton btnMenuInsert = new JButton("Inserir");
-				btnMenuInsert.setBounds(525, 132, 94, 33);
-				panelMenuReg.add(btnMenuInsert);
-				btnMenuInsert.setFont(new Font("Tahoma", Font.BOLD, 12));
-				
-				JButton btnVoltar = new JButton("Voltar");
-				btnVoltar.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent arg0) {
-						new ViewSelectUser().setVisible(true);
-						dispose();
-					}
-				});
-				btnVoltar.setBounds(530, 301, 89, 33);
-				panelMenuReg.add(btnVoltar);
-				btnMenuInsert.addActionListener(new ActionListener() {
 
-					// auxiliary attribute to insert data (products) in the list
+		JButton btnMenuInsert = new JButton("Inserir");
+		btnMenuInsert.setBounds(525, 132, 94, 33);
+		panelMenuReg.add(btnMenuInsert);
+		btnMenuInsert.setFont(new Font("Tahoma", Font.BOLD, 12));
 
-					@Override
-					public void actionPerformed(ActionEvent e) {
+		JButton btnVoltar = new JButton("Voltar");
+		btnVoltar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				new ViewSelectUser().setVisible(true);
+				dispose();
+			}
+		});
+		btnVoltar.setBounds(530, 301, 89, 33);
+		panelMenuReg.add(btnVoltar);
+		btnMenuInsert.addActionListener(new ActionListener() {
 
-						Product selectedItem = (Product) comboMenuSelectItem.getSelectedItem();
-						if(selectedItem != null){
-							listProductsSelected.add(selectedItem);
-							model.addElement(selectedItem);
-							list.setModel(model);
-							System.out.println(model);
-						}
-					}
-				});
+			// auxiliary attribute to insert data (products) in the list
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+
+				// Retorna os produtos escolhidos em um campo específico.
+				Product selectedItem = (Product) comboMenuSelectItem
+						.getSelectedItem();
+				if (selectedItem != null) {
+					listProductsSelected.add(selectedItem);
+					model.addElement(selectedItem);
+					list.setModel(model);
+				}
+			}
+		});
 	}
 
 	public String getSelectedCategory() {
@@ -193,5 +199,9 @@ public class ViewClient extends JFrame {
 
 	public void setSelectedCategory(String selectedCategory) {
 		this.selectedCategory = selectedCategory;
+	}
+
+	public DefaultListModel<Product> getModel() {
+		return model;
 	}
 }
