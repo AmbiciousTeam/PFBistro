@@ -19,8 +19,9 @@ public class LogicImplTest {
 
 	@Test
 	/**
-	 * This test is for implementation LOGIN method, first it is returning a
-	 * FALSE, then the implementation must obtain a return TRUE.
+	 * Este teste e para implementacao do metodo de login, 
+	 * primeiro este teste retorna 'FALSE', entao a implementacao 
+	 * deve retornar um 'TRUE'.
 	 */
 	public void testLoginWorks() {
 		assertEquals(true, logic.login("Wilde", "123"));
@@ -28,10 +29,9 @@ public class LogicImplTest {
 
 	@Test
 	/**
-	 *This test is for implementation LOGIN method,
-	 * first it is returning a TRUE, then the implementation must obtain a
-	return FALSE,
-	 * except when administrator and password are wrong
+	 * Este teste e para implementacao do metodo de login, 
+	 * primeiro este teste retorna 'FALSE', entao a implementacao 
+	 * deve retornar um 'TRUE', exceto quando o administrador estao errados.
 	 */
 	public void testLoginDontWorks() {
 		assertEquals(false, logic.login("metallica", "dragonForce"));
@@ -39,13 +39,13 @@ public class LogicImplTest {
 
 	@Test
 	/**
-	 *This test is for implementation CREATEANDCADASTREPRODUCT method, 
-	 * first it is returning a TRUE it is correct.
+	 * Este teste e para a implementacao do metodo 'CREATEANDCADASTREPRODUCT', 
+	 * e retorna TRUE, se correto.
 	 */
 	public void testCreateAndCadastreProductWorks() {
 
-		// Create array for verifying if createAndCadastreProduct work with
-		// informations named equals;
+		// Cria um array para verificar se createAndCadastreProduct trabalha com
+		// informacoes duplicadas;
 		String[] array = { "Coca-Cola", "6.50", "Bebidas" };
 
 		assertEquals(
@@ -55,13 +55,10 @@ public class LogicImplTest {
 
 	}
 
-	// In test with JUnit the program can save in database the two information,
-	// but this product can't saved.
-
 	@Test
 	/**
-	 *This test is for implementation CREATEANDCADASTREPRODUCT method, 
-	 * first it is returning a TRUE, but the same method could not save equal data in the database.
+	 * Este teste e para a implementacao do metodo  CREATEANDCADASTREPRODUCT, 
+	 * primeiro retorna TRUE, mas o mesmo metodo nao pode salvar dados iguais no banco de dados.
 	 */
 	public void testCreateAndCadastreProductDontWorks() {
 
@@ -76,8 +73,8 @@ public class LogicImplTest {
 
 	@Test
 	/**
-	 *This test is for implementation CREATEANDCADASTREPRODUCT method, 
-	 * first it is returning a TRUE, but the same method could not save empty data to the database.
+	 * Este teste e para a implementacao do metodo  CREATEANDCADASTREPRODUCT, 
+	 * primeiro retorna TRUE, mas o mesmo metodo nao pode salvar dados vazios no banco de dados.
 	 */
 	public void testCreateAndCadastreProductNoString() {
 
@@ -91,42 +88,39 @@ public class LogicImplTest {
 
 	@Test
 	/**
-	 *This test is for implementation REGISTERINGADMIN method, 
-	 * first it is returning a TRUE it is correct.
+	 * Este teste e para a implementacao do metodo REGISTERINGADMIN, 
+	 * primeiro retorna TRUE, se correto.
 	 */
 	public void testRegisteringAdminWorks() throws MsgErrorException {
-		// Create array for verifying if registeringAdmin work with two
-		// administrators and passwords named equals;
+		// Cria um array para verificar se registeringAdmin funciona com
+		// dois usuarios iguais;
 		String[] array = { "LedZepllin", "U2" };
 		assertEquals(true, logic.registeringAdmin(array[0], array[1]));
 
 	}
 
-	// In test with JUnit the program can save in database the repeated
-	// information and saves the information "".
-
 	@Test
 	/**
-	 *This test is for implementation REGISTERINGADMIN method, 
-	 * first it is returning a TRUE, but the same method could not save equal data in the database.
+	 * Este teste e para a implementacao do metodo REGISTERINGADMIN, 
+	 * primeiro retorna TRUE, mas o mesmo metodo nao pode salvar dados iguais no banco de dados.
 	 */
 	public void testRegisteringAdminDontWorks() throws MsgErrorException {
 
-		// Create array for verifying if registeringAdmin work with two
-		// administrators and passwords named equals;
+		// Cria um array para verificar se registeringAdmin funciona com
+		// dois usuarios iguais;
 		String[] array = { "Wilde", "123" };
 		assertEquals(false, logic.registeringAdmin(array[0], array[1]));
 	}
 
 	@Test
 	/**
-	 *This test is for implementation REGISTERINGADMIN method, 
-	 * first it is returning a TRUE, but the same method could not save empty data to the database.
+	 * Este teste e para a implementacao do metodo REGISTERINGADMIN, 
+	 * primeiro retorna TRUE, mas o mesmo metodo nao pode salvar dados vazios no banco de dados
 	 */
 	public void testRegisteringAdminNoString() throws MsgErrorException {
 
-		// Create array for verifying if registeringAdmin work with empty
-		// administrators and passwords;
+		// Cria um array para verificar se registeringAdmin funciona com
+		// dados de usuario e senha vazios.
 		String[] array = { "", "" };
 		assertEquals(false, logic.registeringAdmin(array[0], array[1]));
 	}

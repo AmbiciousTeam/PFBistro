@@ -24,12 +24,12 @@ public class ViewSelectUser extends JFrame {
 		setLocationRelativeTo(null);
 		setResizable(false);
 		getContentPane().setLayout(null);
-		
+
 		final JPanel panelSelectUser = new JPanel();
 		panelSelectUser.setBounds(10, 11, 305, 160);
 		getContentPane().add(panelSelectUser);
 		panelSelectUser.setLayout(null);
-		
+
 		JButton btnSelectAdmin = new JButton("Administrador");
 		getRootPane().setDefaultButton(btnSelectAdmin);
 		btnSelectAdmin.addActionListener(new ActionListener() {
@@ -45,38 +45,36 @@ public class ViewSelectUser extends JFrame {
 		btnSelectAdmin.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnSelectAdmin.setBounds(22, 104, 126, 45);
 		panelSelectUser.add(btnSelectAdmin);
-		
+
 		JButton btnSelectClient = new JButton("Cliente");
 		btnSelectClient.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+
 				new ViewClient().setVisible(true);
 				dispose();
-				
+
 			}
 		});
 		btnSelectClient.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnSelectClient.setBounds(158, 104, 126, 45);
 		panelSelectUser.add(btnSelectClient);
-		
+
 		JLabel lblSelectType = new JLabel("Selecione o tipo de acesso");
 		lblSelectType.setFont(new Font("Tahoma", Font.BOLD, 17));
 		lblSelectType.setHorizontalAlignment(SwingConstants.CENTER);
 		lblSelectType.setBounds(0, 65, 305, 28);
 		panelSelectUser.add(lblSelectType);
-		
+
 		JPanel panelWait = new JPanel();
 		panelWait.setBounds(10, 11, 305, 160);
 		getContentPane().add(panelWait);
 		panelWait.setLayout(null);
-		
+
 		JLabel lblWait = new JLabel("Selecione o tipo de acesso");
 		lblWait.setHorizontalAlignment(SwingConstants.CENTER);
 		lblWait.setFont(new Font("Tahoma", Font.BOLD, 17));
 		lblWait.setBounds(0, 65, 305, 28);
 		panelWait.add(lblWait);
-		
-		
 
 	}
 }

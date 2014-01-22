@@ -11,18 +11,18 @@ import javax.persistence.Table;
 
 @SuppressWarnings("serial")
 @Entity
-@Table (name = "Administrator")
-public class Administrator implements Serializable{
-	
+@Table(name = "Administrator")
+public class Administrator implements Serializable {
+
 	@Id
-	@GeneratedValue (strategy  = GenerationType.SEQUENCE)
-	@Column (name  = "adminstratorId")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@Column(name = "adminstratorId")
 	private long id;
-	
+
 	@Column(name = "adminName", length = 30, nullable = false)
 	private String adminName;
-	
-	@Column (name = "adminPassword" , length = 30 , nullable = false)
+
+	@Column(name = "adminPassword", length = 30, nullable = false)
 	private String adminPassword;
 
 	public long getId() {
@@ -48,7 +48,5 @@ public class Administrator implements Serializable{
 	public void setAdminPassword(String adminPassword) {
 		this.adminPassword = adminPassword;
 	}
-	
-	
-	
+
 }

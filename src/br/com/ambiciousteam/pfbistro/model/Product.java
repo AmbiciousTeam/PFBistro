@@ -16,25 +16,25 @@ import com.thoughtworks.xstream.annotations.XStreamAlias;
 @SuppressWarnings("serial")
 @Entity
 @XStreamAlias("Product")
-@Table (name = "Product")
-public class Product implements Serializable{
+@Table(name = "Product")
+public class Product implements Serializable {
 
 	@Id
-	@GeneratedValue (strategy = GenerationType.SEQUENCE)
-	@Column (name = "productId")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@Column(name = "productId")
 	private long id;
-	
-	@Column (name = "productPrice", nullable = false)
+
+	@Column(name = "productPrice", nullable = false)
 	private double productPrice;
-	
-	@Column (name = "productName", nullable = false)
+
+	@Column(name = "productName", nullable = false)
 	private String productName;
-	
-	@Column (name = "productCategory", nullable = false)
+
+	@Column(name = "productCategory", nullable = false)
 	private String productCategory;
-	
+
 	@ManyToOne
-	@JoinColumn (name = "administratorId")
+	@JoinColumn(name = "administratorId")
 	private Administrator administrator;
 
 	public long getId() {
@@ -76,10 +76,10 @@ public class Product implements Serializable{
 	public void setAdministrator(Administrator administrator) {
 		this.administrator = administrator;
 	}
-	
+
 	@Override
 	public String toString() {
-		return getProductName()+" - R$ "+getProductPrice();
+		return getProductName() + " - R$ " + getProductPrice();
 	}
-	
+
 }

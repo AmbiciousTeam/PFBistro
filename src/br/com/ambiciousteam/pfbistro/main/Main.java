@@ -19,11 +19,8 @@ public class Main {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					 ViewSelectUser frame = new ViewSelectUser();
-					 frame.setVisible(true);
-					// DaoImpl dao = new DaoImpl();
-					// System.out.println(dao.getAdminsNames());
-					// System.out.println(dao.getProductsNames());
+					ViewSelectUser frame = new ViewSelectUser();
+					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
